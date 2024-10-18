@@ -19,5 +19,8 @@ Technician:
 - View Total Tickets sold and users that bought them
 
 Output:
-The program will display options for the user to pick their desired ticket(s). Once validated by the technician, the user will go through the transaction to buy the ticket then the program will output the full details of the ticket and the receipt.
+The program begins with a log in screen where, depending on the credentials entered, the program will determine whether the user is a regular user or a technician.
+If it is a user, the program will display options for the user to pick their desired ticket(s). Once validated by the technician, the user will go through the transaction to buy the ticket then the program will output the full details of the ticket and the receipt.
 When a user wants to do a refund, the program will ask which ticket they want to refund, and then the technician will execute the refund and display the transaction details.
+At any time, the user may view the their purchased tickets and their transactions. The technician may also at any time view the total tickets sold and the users associated with those tickets.
+The program ends once the current user logs out.
