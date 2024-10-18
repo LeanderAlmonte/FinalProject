@@ -1,7 +1,7 @@
 # FinalProject
-Programming Patterns Final Project: Arena Ticket Reservation System
+Programming Patterns Final Project: Arena Ticket Booking System
 
-The Arena Ticket Reservation System is an application where users can search and buy tickets for different events at an arena. They can select events like sports, concerts and spectacles. Technicians will handle the availability and booking of a ticket by a user and handle the transactions. The user may refund a ticket and view the tickets they bought and their transactions. 
+The Arena Ticket Booking System is an application where users can search and buy tickets for different events at an arena. They can select events like sports, concerts and spectacles. Technicians will handle the availability and booking of a ticket by a user and handle the transactions. The user may refund a ticket and view the tickets they bought and their transactions. 
 
 Functionalities:
 
