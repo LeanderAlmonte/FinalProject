@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.LogIn">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.HelloController">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="571.0" text="Arena Ticket Booking System">
          <font>
@@ -16,6 +15,6 @@
       </Label>
       <TextField layoutX="225.0" layoutY="188.0" promptText="Username" />
       <TextField layoutX="225.0" layoutY="238.0" promptText="Password" />
-      <Button layoutX="274.0" layoutY="302.0" mnemonicParsing="false" text="Log In" />
+      <Button layoutX="274.0" layoutY="302.0" mnemonicParsing="false" onAction="#onLogInButtonClick" text="Log In" />
    </children>
 </AnchorPane>
