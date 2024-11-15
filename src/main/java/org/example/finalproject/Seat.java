@@ -1,7 +1,7 @@
 package org.example.finalproject;
 
 public class Seat {
-    private String seatID;
+    private int seatID;
 
 
 }

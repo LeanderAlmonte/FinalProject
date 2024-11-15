@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String password;
     List<Ticket> myTickets = new ArrayList<>();
+    List<Receipt> myReceipts = new ArrayList<>();
 
 
 }

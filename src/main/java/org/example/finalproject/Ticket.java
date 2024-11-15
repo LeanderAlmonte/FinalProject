@@ -3,8 +3,9 @@ package org.example.finalproject;
 import java.util.Currency;
 
 public class Ticket {
-    private String TicketID;
-    private Seat seatID;
+    private int TicketID;
+    private int eventID;
+    private int seatID;
     private double price;
     User assignedUser;
 
