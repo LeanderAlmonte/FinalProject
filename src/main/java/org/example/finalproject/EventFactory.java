@@ -1,4 +1,4 @@
-package org.example;
+package org.example.finalproject;
 
 public class EventFactory extends EventAbstractFactory{
 

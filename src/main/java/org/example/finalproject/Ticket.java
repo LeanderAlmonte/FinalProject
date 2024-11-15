@@ -1,10 +1,10 @@
-package org.example;
+package org.example.finalproject;
 
 import java.util.Currency;
 
 public class Ticket {
-    private String Ticketid;
-    private Seat seat;
+    private String TicketID;
+    private Seat seatID;
     private double price;
     User assignedUser;
 
