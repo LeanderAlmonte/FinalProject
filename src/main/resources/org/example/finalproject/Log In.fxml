@@ -4,17 +4,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.HelloController">
-   <children>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="571.0" text="Arena Ticket Booking System">
-         <font>
-            <Font size="37.0" />
-         </font>
-      </Label>
-      <TextField layoutX="225.0" layoutY="188.0" promptText="Username" />
-      <TextField layoutX="225.0" layoutY="238.0" promptText="Password" />
-      <Button layoutX="274.0" layoutY="302.0" mnemonicParsing="false" onAction="#onLogInButtonClick" text="Log In" />
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.GuiController">
+   <top>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00008B;" BorderPane.alignment="CENTER">
+         <Label alignment="CENTER" layoutX="15.0" layoutY="45.0" prefHeight="111.0" prefWidth="571.0" text="Arena Ticket Booking System" textFill="WHITE">
+            <font>
+               <Font size="37.0" />
+            </font>
+         </Label>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <TextField layoutX="101.0" layoutY="113.0" prefHeight="44.0" prefWidth="171.0" promptText="Password" />
+         <Button layoutX="371.0" layoutY="64.0" mnemonicParsing="false" onAction="#onLogInButtonClick" prefHeight="49.0" prefWidth="147.0" style="-fx-background-color: #00008B;" text="Log In" textFill="WHITE" />
+         <TextField layoutX="101.0" layoutY="42.0" prefHeight="44.0" prefWidth="171.0" promptText="Username" />
+         <Label fx:id="errorLabel" alignment="CENTER" layoutX="290.0" layoutY="9.0" prefHeight="45.0" prefWidth="299.0" textFill="RED" />
+      </AnchorPane>
+   </bottom>
+</BorderPane>
