@@ -60,15 +60,15 @@ public class GuiModel {
     private static void TicketTable(){
         String sql = " create table if not exists Ticket (\n"
                 + "TicketID integer primary key, \n"
-                + "EventID int not null, \n"
-                + "SeatID int not null,\n"
-                + "UserID int ,\n"
-                + "SectionID int not null,\n"
-                + "Price double not null"
-                + " foreign key (user_id) references User (UserID) on delete set null, \n"
-                + " foreign key (event_id) references Event (EventID) on delete cascade, \n"
-                + " foreign key (section_id) references Section (SectionID) on delete cascade, \n"
-                + " foreign key (seat_id) references Seat (SeatID) on delete cascade \n);";
+                + "EventID integer not null, \n"
+                + "SeatID integer not null,\n"
+                + "UserID integer not null ,\n"
+                + "SectionID integer not null,\n"
+                + "Price double not null, "
+                + " foreign key (UserID) references User (UserID) on delete set null, \n"
+                + " foreign key (EventID) references Event (EventID) on delete cascade, \n"
+                + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
+                + " foreign key (SeatID) references Seat (SeatID) on delete cascade \n);";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -111,9 +111,9 @@ public class GuiModel {
     private static void SectionTable(){
         String sql = " create table if not exists Section ( \n"
                 + " SectionID integer primary key, \n"
-                + " name text not null \n"
-                + " ArenaID int not null,\n"
-                + " foreign key (arena_id) references (ArenaID) on delete cascade,\n"
+                + " name text not null, \n"
+                + " ArenaID integer not null,\n"
+                + " foreign key (ArenaID) references Arena (ArenaID) on delete cascade\n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
@@ -127,8 +127,8 @@ public class GuiModel {
     private static void SeatTable(){
         String sql = " create table if not exists Seat ( \n"
                 + " SeatID integer primary key, \n"
-                + " SectionID int not null \n"
-                + " foreign key (section_id) references Section (SectionID) on delete cascade,\n)"
+                + " SectionID integer not null, \n"
+                + " foreign key (SectionID) references Section (SectionID) on delete cascade\n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
@@ -140,9 +140,12 @@ public class GuiModel {
     }
 
 public static void main(String[] args) {
-UserTable();
-TechTable();
-EventTable();
+//UserTable();
+//TechTable();
+//EventTable();
+//ArenaTable();
+//SectionTable();
+//SeatTable();
 TicketTable();
 }
 
