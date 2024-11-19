@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 
 public class GuiModel {
-    //s
 
     private static Connection connect() {
         String url = "jdbc:sqlite:FinalProject.db";
@@ -23,7 +22,7 @@ public class GuiModel {
     }
     private static void UserTable(){
         String sql = " create table if not exists User (\n"
-                + " id integer primary key, \n"
+                + " UserID integer primary key, \n"
                 + " name text not null, \n"
                 + " email text \n"
                 + ");";
@@ -41,7 +40,7 @@ public class GuiModel {
 
     private static void TechTable(){
         String sql = " create table if not exists Technician (\n"
-                + " id integer primary key, \n"
+                + " TechnicianID integer primary key, \n"
                 + " name text not null \n"
                 + ");";
         try(Connection conn = connect();
@@ -60,13 +59,16 @@ public class GuiModel {
 
     private static void TicketTable(){
         String sql = " create table if not exists Ticket (\n"
-                + " id integer primary key, \n"
-                + " EventID int not null, \n"
+                + "TicketID integer primary key, \n"
+                + "EventID int not null, \n"
                 + "SeatID int not null,\n"
                 + "UserID int ,\n"
                 + "SectionID int not null,\n"
                 + "Price double not null"
-                + ");";
+                + " foreign key (user_id) references User (UserID) on delete set null, \n"
+                + " foreign key (event_id) references Event (EventID) on delete cascade, \n"
+                + " foreign key (section_id) references Section (SectionID) on delete cascade, \n"
+                + " foreign key (seat_id) references Seat (SeatID) on delete cascade \n);";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -80,13 +82,58 @@ public class GuiModel {
 
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
-                + " id integer primary key, \n"
+                + " EventID integer primary key, \n"
                 + " name text not null \n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println(" Event table created successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void ArenaTable(){
+        String sql = " create table if not exists Arena ( \n"
+                + " ArenaID integer primary key, \n"
+                + " name text not null \n"
+                + ");";
+        try(Connection conn = connect();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println(" Arena table created successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void SectionTable(){
+        String sql = " create table if not exists Section ( \n"
+                + " SectionID integer primary key, \n"
+                + " name text not null \n"
+                + " ArenaID int not null,\n"
+                + " foreign key (arena_id) references (ArenaID) on delete cascade,\n"
+                + ");";
+        try(Connection conn = connect();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println(" Section table created successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void SeatTable(){
+        String sql = " create table if not exists Seat ( \n"
+                + " SeatID integer primary key, \n"
+                + " SectionID int not null \n"
+                + " foreign key (section_id) references Section (SectionID) on delete cascade,\n)"
+                + ");";
+        try(Connection conn = connect();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println(" Seat table created successfully");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

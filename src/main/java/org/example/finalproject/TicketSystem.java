@@ -6,14 +6,14 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public  class TicketSystem {
-   private static TicketSystem ticketSystem = new TicketSystem();
+   private static TicketSystem instance = new TicketSystem();
     private static   List<Ticket> unassignedTicket  = new ArrayList<>();
     private static  Queue<Ticket> pendingTicket = new PriorityQueue<>();
     private static  List<Ticket> processedTickets = new ArrayList<>();
 
 
     public static TicketSystem getInstance() {
-        return ticketSystem;
+        return instance;
     }
 
     public static List<Ticket> getUnassignedTicket() {
