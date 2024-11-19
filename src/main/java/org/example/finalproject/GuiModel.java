@@ -1,10 +1,6 @@
 package org.example.finalproject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.*;
 
 
 public class GuiModel {
@@ -139,6 +135,58 @@ public class GuiModel {
         }
     }
 
+    private static void ReceiptTable(){
+        String sql = " create table if not exists Receipt ( \n"
+                + " ReceiptID integer primary key, \n"
+                + " SectionID integer not null, \n"
+                + " SeatID integer not null, \n"
+                + " UserID integer not null, \n"
+                + " TechnicianID integer not null, \n"
+                + " payment integer not null, \n"
+                + " foreign key (TechnicianID) references Technician (TechnicianID) on delete cascade, \n"
+                + " foreign key (UserID) references User (UserID) on delete cascade, \n"
+                + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
+                + " foreign key (SeatID) references Seat (SeatID) on delete cascade\n"
+                + ");";
+        try(Connection conn = connect();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println(" Receipt table created successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void insertUser(String name, String email) {
+        String sql = " insert into User (name,email) values (?, ?)";
+        try(Connection conn= connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+            pstmt.executeUpdate();
+            System.out.println("User data has been added successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void displayUsers() {
+        String sql = "select * from User";
+        try (Connection conn =connect(); Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            System.out.println(" User :");
+            while(rs.next()) {
+                System.out.println("Id : " + rs.getInt("UserID") + ", Name: " + rs.getString("name") + " " +
+                        ", Email : " + rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
 public static void main(String[] args) {
 //UserTable();
 //TechTable();
@@ -146,7 +194,10 @@ public static void main(String[] args) {
 //ArenaTable();
 //SectionTable();
 //SeatTable();
-TicketTable();
+//TicketTable();
+//ReceiptTable();
+    insertUser("Leander Almonte", "me@gmail.com");
+    displayUsers();
 }
 
 }

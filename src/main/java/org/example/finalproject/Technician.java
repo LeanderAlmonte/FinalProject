@@ -5,4 +5,8 @@ public class Technician {
     private int technicianID;
     private String username;
     private String password;
+
+    public void createEvent(EventFactoryProducer producer){
+
+    }
 }
