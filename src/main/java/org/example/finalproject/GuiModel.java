@@ -16,11 +16,14 @@ public class GuiModel {
         }
         return conn;
     }
+
     private static void UserTable(){
         String sql = " create table if not exists User (\n"
                 + " UserID integer primary key, \n"
                 + " name text not null, \n"
-                + " email text \n"
+                + " email text not null, \n"
+                + " username text not null, \n"
+                + " password text not null \n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
@@ -31,13 +34,12 @@ public class GuiModel {
         }
     }
 
-
-
-
     private static void TechTable(){
         String sql = " create table if not exists Technician (\n"
                 + " TechnicianID integer primary key, \n"
-                + " name text not null \n"
+                + " name text not null, \n"
+                + " username text not null, \n"
+                + " password text not null \n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
@@ -47,11 +49,6 @@ public class GuiModel {
             System.out.println(e.getMessage());
         }
     }
-
-
-
-
-
 
     private static void TicketTable(){
         String sql = " create table if not exists Ticket (\n"
@@ -142,7 +139,7 @@ public class GuiModel {
                 + " SeatID integer not null, \n"
                 + " UserID integer not null, \n"
                 + " TechnicianID integer not null, \n"
-                + " payment integer not null, \n"
+                + " payment int not null, \n"
                 + " foreign key (TechnicianID) references Technician (TechnicianID) on delete cascade, \n"
                 + " foreign key (UserID) references User (UserID) on delete cascade, \n"
                 + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
@@ -157,14 +154,40 @@ public class GuiModel {
         }
     }
 
-    public static void insertUser(String name, String email) {
-        String sql = " insert into User (name,email) values (?, ?)";
+    public static void insertUser(String name, String email, String username, String password) {
+        String sql = " insert into User (name,email,username,password) values (?, ?, ?, ?)";
         try(Connection conn= connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, email);
+            pstmt.setString(3, username);
+            pstmt.setString(4, password);
             pstmt.executeUpdate();
-            System.out.println("User data has been added successfully");
+            System.out.println(name+" has been added to the database successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void insertTechnician(String name, String username, String password) {
+        String sql = " insert into Technician (name, username, password) values (?, ?, ?)";
+        try(Connection conn= connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, username);
+            pstmt.setString(3, password);
+            pstmt.executeUpdate();
+            System.out.println(name+" has been added to the database successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteUsers() {
+        String sql = "delete from User";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            stmt.execute(sql);
+            System.out.println("Data deleted from User Table");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -184,20 +207,88 @@ public class GuiModel {
         }
     }
 
+    private static void dropReceiptTable(){
+        String sql = " drop table Receipt";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            stmt.execute(sql);
+            System.out.println("Receipt table dropped successfully");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    private static void dropUserTable(){
+        String sql = " drop table User";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            stmt.execute(sql);
+            System.out.println("User table dropped successfully");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void dropTechTable(){
+        String sql = " drop table Technician";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            stmt.execute(sql);
+            System.out.println("Technician table dropped successfully");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadUsers(TicketSystem system){
+        String sql = "select * from User";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                system.addUser(new User(rs.getString("name"),rs.getString("email"), rs.getString("username"),rs.getString("password")));
+            }
+            System.out.println("Loaded User data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadTechnicians(TicketSystem system){
+        String sql = "select * from Technician";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                system.addTechnician(new Technician(rs.getString("name"), rs.getString("username"),rs.getString("password")));
+            }
+            System.out.println("Loaded Technician data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
 public static void main(String[] args) {
 //UserTable();
 //TechTable();
+
+//    dropUserTable();
+//    dropTechTable();
 //EventTable();
 //ArenaTable();
 //SectionTable();
 //SeatTable();
 //TicketTable();
 //ReceiptTable();
-    insertUser("Leander Almonte", "me@gmail.com");
+//    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+//    insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+//
+//    insertTechnician("John Doe", "doej","technician1");
+//    insertTechnician("Bruce Wayne", "wayneb","technician2");
+
     displayUsers();
+
 }
 
 }

@@ -8,8 +8,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GUIApplication extends Application {
+
+    TicketSystem ticketSystem;
+
     @Override
     public void start(Stage stage) throws IOException {
+        ticketSystem = TicketSystem.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("Log In.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Arena Ticket Booking System");
