@@ -90,4 +90,31 @@ public class GuiController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    protected void onBackUserButtonClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    protected void onBookTicketButtonClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("BookTicket.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    protected void onViewTicketsButtonClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("ViewTickets.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

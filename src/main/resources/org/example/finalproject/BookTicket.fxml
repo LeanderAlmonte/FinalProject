@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.GuiController">
+   <top>
+      <AnchorPane prefHeight="124.0" prefWidth="600.0" style="-fx-background-color: #00008B;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="131.0" layoutY="17.0" prefHeight="87.0" prefWidth="339.0" text="Book Ticket" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Sans Unicode" size="56.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="160.0" prefWidth="111.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="24.0" layoutY="59.0" mnemonicParsing="false" onAction="#onBackUserButtonClick" prefHeight="43.0" prefWidth="63.0" text="Back" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField layoutX="207.0" layoutY="22.0" />
+            <Label alignment="CENTER" prefHeight="69.0" prefWidth="207.0" text="Enter TicketID of desired ticket:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="375.0" layoutY="22.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Confirm" />
+            <Label alignment="CENTER" layoutX="14.0" layoutY="80.0" prefHeight="67.0" prefWidth="457.0" text="Label">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

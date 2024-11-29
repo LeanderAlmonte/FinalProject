@@ -55,7 +55,7 @@ public class GuiModel {
                 + "TicketID integer primary key, \n"
                 + "EventID integer not null, \n"
                 + "SeatID integer not null,\n"
-                + "UserID integer not null ,\n"
+                + "UserID integer ,\n"
                 + "SectionID integer not null,\n"
                 + "Price double not null, "
                 + " foreign key (UserID) references User (UserID) on delete set null, \n"
@@ -218,6 +218,17 @@ public class GuiModel {
         }
     }
 
+    private static void dropTicketTable(){
+        String sql = " drop table Ticket";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            stmt.execute(sql);
+            System.out.println("Ticket table dropped successfully");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void dropUserTable(){
         String sql = " drop table User";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -281,13 +292,15 @@ public static void main(String[] args) {
 //SeatTable();
 //TicketTable();
 //ReceiptTable();
+
+//    dropTicketTable();
 //    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
 //    insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
 //    insertTechnician("John Doe", "doej","technician1");
 //    insertTechnician("Bruce Wayne", "wayneb","technician2");
 
-    displayUsers();
+//    displayUsers();
 
 }
 
