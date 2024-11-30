@@ -15,6 +15,8 @@ public  class TicketSystem {
     private List<User> users;
     private List<Technician> technicians;
 
+    private List<Receipt> receipts;
+
     private TicketSystem() {
         unassignedTicket = new ArrayList<>();
         pendingTicket = new PriorityQueue<>();
@@ -22,6 +24,8 @@ public  class TicketSystem {
 
         users = new ArrayList<>();
         technicians = new ArrayList<>();
+
+        receipts = new ArrayList<>();
 
         GuiModel.loadUsers(this);
         GuiModel.loadTechnicians(this);
@@ -89,5 +93,17 @@ public  class TicketSystem {
         for (User user : users) {
             System.out.println(user.getUsername());
         }
+    }
+
+    public void addUnassignedTicket(Ticket ticket){
+        unassignedTicket.add(ticket);
+    }
+
+    public void addPendingTicket(Ticket ticket){
+        pendingTicket.add(ticket);
+    }
+
+    public void addProcessedTicket(Ticket ticket){
+        processedTickets.add(ticket);
     }
 }
