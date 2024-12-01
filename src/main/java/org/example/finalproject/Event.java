@@ -7,7 +7,7 @@ public abstract class Event {
     private int eventID;
 
     Arena eventArena;
-    private String eventName;
+    protected String eventName;
     private int totalSections;
 
     public int getEventID() {

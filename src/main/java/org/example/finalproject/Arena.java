@@ -6,9 +6,9 @@ import java.util.List;
 public class Arena {
     private final String name = "Patterns Arena";
     private List<Section> sections;
+    private final int totalSeatsPerSection = 100;
 
-
-    public Arena(int totalSections, int totalSeatsPerSection){
+    public Arena(int totalSections){
 
         sections = new ArrayList<>();
 

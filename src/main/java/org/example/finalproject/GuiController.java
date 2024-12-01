@@ -1,18 +1,26 @@
 package org.example.finalproject;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class GuiController {
+    public TableColumn<Ticket, Integer > SearchTicketID;
+    public TableColumn<Ticket, String > SearchEvent_Name;
+    public TableColumn<Ticket, Integer > SearchSection;
+    public TableColumn<Ticket, Integer > SearchSeat;
+    public TableColumn<Ticket, Double > SearchPrice;
+    public TableView<Ticket> SearchTable;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -37,6 +45,18 @@ public class GuiController {
     private TextField passwordTextField;
 
     @FXML
+    private TableView<Ticket> RefundTable;
+    @FXML
+    private TableColumn<Ticket, Integer > RefundTableTicketID;
+    @FXML
+    private TableColumn<Ticket, String > RefundTableEvent_Name;
+    @FXML
+    private TableColumn<Ticket, Integer > RefundTableSection;
+    @FXML
+    private TableColumn<Ticket, Integer > RefundTableSeat;
+    @FXML
+    private TableColumn<Ticket, Double > RefundTablePrice;
+    @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
         ticketSystem.displayUsers();
@@ -55,7 +75,7 @@ public class GuiController {
         }
         else if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null){
             if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
-                root = FXMLLoader.load(getClass().getResource("TechnicianMainMenu.fxml"));
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -75,7 +95,7 @@ public class GuiController {
 
     @FXML
     protected void onLogOutButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Log In.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -84,7 +104,7 @@ public class GuiController {
 
     @FXML
     protected void onLogOutTechButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Log In.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -93,7 +113,7 @@ public class GuiController {
 
     @FXML
     protected void onBackUserButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserMainMenu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -102,7 +122,7 @@ public class GuiController {
 
     @FXML
     protected void onBookTicketButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("BookTicket.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookTicket.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -111,10 +131,66 @@ public class GuiController {
 
     @FXML
     protected void onViewTicketsButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("ViewTickets.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewTickets.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    protected void onSearchButtonClick(ActionEvent event)  throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
+
+    }
+    @FXML
+    protected void onRefundButtonClick(ActionEvent event)  throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    public void loadRefundTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> refundList= RefundTable.getItems() ;
+        refundList.add(new Ticket(1,1,2,12,3.12));
+
+
+        RefundTable.setItems(refundList);
+        System.out.println("Table was loaded");
+
+    }
+    public void loadSearchTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+
+        list.addAll(TicketSystem.getInstance().getUnassignedTicket());
+
+
+        SearchTable.setItems(list);
+        System.out.println("Table was loaded");
+
     }
 }

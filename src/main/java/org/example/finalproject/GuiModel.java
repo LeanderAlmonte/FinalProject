@@ -71,7 +71,23 @@ public class GuiModel {
         }
     }
 
+public static void insertTicket(Ticket ticket){
+    String sql = " insert into Ticket (TicketID,EventID,SeatID,SectionID,Price) values (?, ?, ?, ?,?)";
+    try(Connection conn= connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, ticket.getTicketID());
+        pstmt.setInt(2, ticket.getEventID());
+        pstmt.setInt(3, ticket.getSeatID());
+        pstmt.setInt(4, ticket.getSectionID());
+        pstmt.setDouble(5, ticket.getPrice());
+        pstmt.executeUpdate();
+        System.out.println("Ticket has been added");
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
 
+
+}
 
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
@@ -278,6 +294,20 @@ public class GuiModel {
             System.out.println(e.getMessage());
         }
     }
+    public static void loadUnsassignedTickets(TicketSystem system){
+        String sql = "select * from Ticket";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+            }
+            System.out.println("Loaded Technician data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 
 public static void main(String[] args) {
@@ -301,6 +331,7 @@ public static void main(String[] args) {
 //    insertTechnician("Bruce Wayne", "wayneb","technician2");
 
 //    displayUsers();
+
 
 }
 
