@@ -301,8 +301,24 @@ public static void insertTicket(Ticket ticket){
 
             while(rs.next()){
                 system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void displayUnsassignedTickets(){
+        String sql = "select * from Ticket";
+        try(Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+
+            while(rs.next()){
+                System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
+
+            }
+
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -332,7 +348,7 @@ public static void main(String[] args) {
 
 //    displayUsers();
 
-
+    displayUnsassignedTickets();
 }
 
 }
