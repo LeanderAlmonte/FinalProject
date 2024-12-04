@@ -190,9 +190,10 @@ public class GuiController {
         SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
         SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
         ObservableList<Ticket> list= SearchTable.getItems() ;
-        for (Ticket item : TicketSystem.getInstance().getUnassignedTicket()) {
-            list.add(item);
-            System.out.println("element added");
+        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+
+            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+
         }
 
         SearchTable.setItems(list);
