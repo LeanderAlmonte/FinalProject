@@ -9,12 +9,32 @@ public class Ticket {
     private int seatID;
     private double price;
     User assignedUser;
+    private boolean processing;
+    private boolean assigned;
+
+    public boolean isProcessing() {
+        return processing;
+    }
+
+    public void setProcessing(boolean processing) {
+        this.processing = processing;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+    }
 
     public Ticket(int eventID, int sectionID, int seatID, double price) {
         this.eventID = eventID;
         this.sectionID = sectionID;
         this.seatID = seatID;
         this.price = price;
+        this.assigned = false;
+        this.processing = false;
     }
 
     public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price) {
