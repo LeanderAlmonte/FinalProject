@@ -31,7 +31,7 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button layoutX="122.0" layoutY="117.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="Assign Ticket" textFill="WHITE" />
+            <Button layoutX="122.0" layoutY="117.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="115.0" onAction="#LoadAssign" style="-fx-background-color: #00A36C;" text="Assign Ticket" textFill="WHITE" />
             <Button layoutX="122.0" layoutY="188.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="View User Data" textFill="WHITE" />
             <Button layoutX="122.0" layoutY="259.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="Log Out" textFill="WHITE" />
          </children>
