@@ -86,6 +86,15 @@ public  class TicketSystem {
         return null;
     }
 
+    public User getUserByUserID(int userID){
+        for (User user : users) {
+            if(user.getUserID() == userID) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public Technician getTechnicianByUsername(String username){
         for (Technician technician : technicians) {
             if(technician.getUsername().equals(username)) {
@@ -101,7 +110,7 @@ public  class TicketSystem {
         }
     }
 
-    public static Event getEventByEventID(int eventId){
+    public Event getEventByEventID(int eventId){
         for (Event event: instance.events){
             if(event.getEventID() == eventId){
                 return event;

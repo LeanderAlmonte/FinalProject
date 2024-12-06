@@ -23,6 +23,16 @@ public class User {
         idCounter++;
     }
 
+    public User(int userID,String name, String email, String username, String password) {
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+
+        idCounter++;
+    }
+
     public int getUserID() {
         return userID;
     }
