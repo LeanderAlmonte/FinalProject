@@ -545,8 +545,8 @@ public static void main(String[] args) {
 //  insertTechnician("Bruce Wayne", "wayneb","technician2");
 
 //insertTicket(new Ticket(1,2,3,4,5));
-//Ticket t1 =     new Ticket(53,2,3,4,5);
-//insertTicket(t1);
+Ticket t1 =     new Ticket(58,2,3,4,5);
+insertTicket(t1);
 //t1.setAssigned(true);
 //Ticket t2 =     new Ticket(3,2,3,4,5);
    // t2.setProcessing(true);

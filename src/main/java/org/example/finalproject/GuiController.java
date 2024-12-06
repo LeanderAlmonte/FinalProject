@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GuiController {
+    int buttonpress = 0;
     public TableColumn<Ticket, Integer > SearchTicketID;
     public TableColumn<Ticket, String > SearchEvent_Name;
     public TableColumn<Ticket, Integer > SearchSection;
@@ -183,43 +184,48 @@ public class GuiController {
     @FXML
     public void loadRefundTable(ActionEvent event){
 
-        Cell<String> id = new Cell<>();
-        RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
-        RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
-        RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
-        RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
-        RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
-        ObservableList<Ticket> refundList= RefundTable.getItems() ;
+        if(buttonpress<1) {
+            buttonpress++;
+            RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
+            RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
+            RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
+            RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
+            RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            ObservableList<Ticket> refundList = RefundTable.getItems();
 
-            for(int i = 0  ; i<GUIApplication.ActiveUser.myTickets.size();i++) {
+            for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
 
                 refundList.add(GUIApplication.ActiveUser.myTickets.get(i));
 
             }
 
 
-        RefundTable.setItems(refundList);
-        System.out.println("Table was loaded");
+            RefundTable.setItems(refundList);
+            System.out.println("Table was loaded");
+        }
 
     }
 
     public void loadSearchTable(ActionEvent event) {
 
+if(buttonpress<1){
+    buttonpress++;
+            SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
+            SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
+            SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
+            SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
+            SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            ObservableList<Ticket> list = SearchTable.getItems();
+            for (int i = 1; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
 
-        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
-        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
-        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
-        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
-        ObservableList<Ticket> list= SearchTable.getItems() ;
-        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+                list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
 
-            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+            }
+
+            SearchTable.setItems(list);
+            System.out.println("Table was loaded");
 
         }
-
-        SearchTable.setItems(list);
-        System.out.println("Table was loaded");
 
     }
 
@@ -245,7 +251,7 @@ public class GuiController {
 
     public void loadTicketsTable(ActionEvent event) {
 
-        Cell<String> id = new Cell<>();
+
         SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
         SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
         SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
@@ -265,42 +271,45 @@ public class GuiController {
 
 
     public void loadUserTickets(ActionEvent event) {
+        if(buttonpress<1) {
+            buttonpress++;
+            UserTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
+            UserSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
+            UserPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
+            UserSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
+            UserEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            ObservableList<Ticket> list = UserTable.getItems();
+            for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
 
-        UserTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
-        UserSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
-        UserPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
-        UserSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-        UserEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
-        ObservableList<Ticket> list = UserTable.getItems();
-        for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
+                list.add(GUIApplication.ActiveUser.myTickets.get(i));
 
-            list.add(GUIApplication.ActiveUser.myTickets.get(i));
+            }
+
+            UserTable.setItems(list);
+            System.out.println("Table was loaded");
 
         }
-
-        UserTable.setItems(list);
-        System.out.println("Table was loaded");
-
-
     }
     public void loadAssignTable(){
 
+        if(buttonpress<1) {
+            buttonpress++;
+            AssignTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
+            AssignSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
+            AssignPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
+            AssignSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
+            AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            ObservableList<Ticket> list = AssignTable.getItems();
+            for (int i = 0; i < GUIApplication.ticketSystem.getPendingTicket().size(); i++) {
 
-        AssignTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
-        AssignSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
-        AssignPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
-        AssignSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
-        AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
-        ObservableList<Ticket> list= AssignTable.getItems() ;
-        for(int i = 0  ; i<GUIApplication.ticketSystem.getPendingTicket().size();i++) {
-
-            list.add(GUIApplication.ticketSystem.getPendingTicket().get(i));
+                list.add(GUIApplication.ticketSystem.getPendingTicket().get(i));
 
 
+            }
+
+            AssignTable.setItems(list);
+            System.out.println("Table was loaded");
         }
-
-        AssignTable.setItems(list);
-        System.out.println("Table was loaded");
     }
 
     public void BookTicket(ActionEvent event){
@@ -310,8 +319,20 @@ public class GuiController {
 
 
     }
+    public void BookTicketSearch(ActionEvent event){
+
+        int selectedID = SearchTable.getSelectionModel().getSelectedIndex();
+        GuiModel.ticketToProcessing(SearchTable.getItems().get(selectedID).getTicketID()+"",GUIApplication.ActiveUser.getUserID()+"");
+
+
+      GUIApplication.ticketSystem.getPendingTicket().add(GUIApplication.ticketSystem.getUnassignedTicket().remove(GUIApplication.ticketSystem.getUnassignedTicket().indexOf(SearchTable.getItems().get(selectedID))));
+        SearchTable.getItems().remove(selectedID);
+
+
+    }
 
     public void LoadAssign(ActionEvent event) throws IOException {
+        buttonpress=0;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AssignTickets.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -323,5 +344,25 @@ public class GuiController {
         int selectedID = AssignTable.getSelectionModel().getSelectedIndex();
         GuiModel.ticketToAssigned(AssignTable.getItems().get(selectedID).getTicketID()+"");
      AssignTable.getItems().remove(selectedID);
+        GUIApplication.ActiveUser.myTickets.add(GUIApplication.ticketSystem.getPendingTicket().remove(GUIApplication.ticketSystem.getPendingTicket().indexOf(AssignTable.getItems().get(selectedID))));
+    }
+    public void loadTechView(ActionEvent event) throws IOException {
+        buttonpress=0;
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void refundTicket(ActionEvent event){
+
+        int selectedID = RefundTable.getSelectionModel().getSelectedIndex();
+        GuiModel.ticketToRefund(RefundTable.getItems().get(selectedID).getTicketID()+"");
+
+
+        GUIApplication.ticketSystem.getUnassignedTicket().add(GUIApplication.ActiveUser.myTickets.remove(GUIApplication.ActiveUser.myTickets.indexOf(RefundTable.getItems().get(selectedID))));
+        RefundTable.getItems().remove(selectedID);
+
+
     }
 }

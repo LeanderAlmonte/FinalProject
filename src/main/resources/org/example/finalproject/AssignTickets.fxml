@@ -23,7 +23,7 @@
             <Font name="Lucida Sans Unicode" size="53.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackUserButtonClick" text="Back" />
+      <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadTechView" text="Back" />
       <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#loadAssignTable" text="load" />
       <Button layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#AssignTicket" text="Assign" />
    </children>

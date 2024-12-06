@@ -24,7 +24,7 @@
          </font>
       </Label>
       <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackUserButtonClick" text="Back" />
-      <Button layoutX="533.0" layoutY="14.0" mnemonicParsing="false" text="Book" />
+      <Button layoutX="533.0" layoutY="14.0"  onAction="#BookTicketSearch" mnemonicParsing="false" text="Book" />
       <Button layoutX="15.0" onAction="#loadSearchTable" layoutY="66.0" mnemonicParsing="false" text="load" />
    </children>
 </AnchorPane>
