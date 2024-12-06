@@ -54,6 +54,7 @@ public class GuiModel {
         String sql = " create table if not exists Ticket (\n"
                 + "TicketID integer primary key, \n"
                 + "EventID integer not null, \n"
+                + "EventName Text not null, \n"
                 + "UserID integer ,\n"
                 + "SeatID int not null,\n"
                 + "SectionID int not null,\n"
@@ -73,7 +74,7 @@ public class GuiModel {
     }
 
 public static void insertTicket(Ticket ticket){
-    String sql = " insert into Ticket (TicketID,EventID,UserID,SeatID,SectionID,Price,Processing,Assigned) values (?, ?, ?, ?,?,?,?, ?)";
+    String sql = " insert into Ticket (TicketID,EventID,UserID,SeatID,SectionID,Price,Processing,Assigned,EventName) values (?, ?, ?, ?,?,?,?, ?,?)";
     try(Connection conn= connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, ticket.getTicketID());
@@ -84,6 +85,7 @@ public static void insertTicket(Ticket ticket){
         pstmt.setDouble(6, ticket.getPrice());
         pstmt.setBoolean(7,ticket.isProcessing());
         pstmt.setBoolean(8,ticket.isAssigned());
+        pstmt.setString(9,ticket.getEventName());
         pstmt.executeUpdate();
         System.out.println("Ticket has been added");
     } catch (SQLException e) {
@@ -419,7 +421,7 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -434,7 +436,7 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getPendingTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getPendingTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -448,7 +450,7 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -560,7 +562,7 @@ public static void insertTicket(Ticket ticket){
 
             while(rs.next()){
 
-                user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -571,8 +573,8 @@ public static void insertTicket(Ticket ticket){
 
 
 public static void main(String[] args) {
-//UserTable();
-//TechTable();
+UserTable();
+TechTable();
 
   // dropUserTable();
  // dropTechTable();
@@ -584,24 +586,24 @@ public static void main(String[] args) {
 //    dropSeatTable();
 //    dropSectionTable();
 //    dropArenaTable();
-//EventTable();
-//TicketTable();
+EventTable();
+TicketTable();
 //ReceiptTable();
 
 //    dropTicketTable();
-//    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
-// insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+ insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+ insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
    //insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
   // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
-//    insertTechnician("John Doe", "doej","technician1");
-//   insertTechnician("Bruce Wayne", "wayneb","technician2");
+  insertTechnician("John Doe", "doej","technician1");
+   insertTechnician("Bruce Wayne", "wayneb","technician2");
   // insertTechnician("John Doe", "doej","technician1");
 //  insertTechnician("Bruce Wayne", "wayneb","technician2");
 
 //insertTicket(new Ticket(1,2,3,4,5));
-Ticket t1 =     new Ticket(58,2,3,4,5);
-insertTicket(t1);
+//Ticket t1 =     new Ticket(58,2,3,4,5);
+//insertTicket(t1);
 //t1.setAssigned(true);
 //Ticket t2 =     new Ticket(3,2,3,4,5);
    // t2.setProcessing(true);
@@ -614,7 +616,7 @@ insertTicket(t1);
 //ticketToAssigned("11","4");
    // ticketToRefund("11");
    // displayUsers();
-//    displayUnsassignedTickets();
+   //displayUnsassignedTickets();
     //displayAssignedTickets();
   //displayUnsassignedTickets();
    //displayAssignedTicketsByUser("4");

@@ -203,7 +203,7 @@ public class GuiController {
             RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
             RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
             RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-            RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> refundList = RefundTable.getItems();
 
             for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
@@ -227,7 +227,7 @@ if(buttonpress<1){
             SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
             SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
             SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-            SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = SearchTable.getItems();
             for (int i = 1; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
 
@@ -249,7 +249,7 @@ if(buttonpress<1){
         SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
         SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
         SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
         ObservableList<Ticket> list = SearchTable.getItems();
         for (int i = 0; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
 
@@ -290,7 +290,7 @@ if(buttonpress<1){
             UserSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
             UserPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
             UserSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-            UserEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            UserEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = UserTable.getItems();
             for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
 
@@ -312,7 +312,7 @@ if(buttonpress<1){
             AssignSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
             AssignPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
             AssignSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-            AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+            AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = AssignTable.getItems();
             for (int i = 0; i < GUIApplication.ticketSystem.getPendingTicket().size(); i++) {
 
@@ -400,9 +400,19 @@ if(buttonpress<1){
         RefundTable.getItems().remove(selectedID);
 
 
-    }
 
     }
+
+    public void loadDataView(ActionEvent event) throws IOException {
+
+        buttonpress=0;
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("data.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+}
 
 
 

@@ -13,6 +13,7 @@ public class Seat {
                 seatID,
                 price
         );
+        GUIApplication.ticketSystem.getUnassignedTicket().add(ticket);
 
         // Add the ticket to the unassigned tickets in TicketSystem
         TicketSystem.getInstance().addUnassignedTicket(ticket);

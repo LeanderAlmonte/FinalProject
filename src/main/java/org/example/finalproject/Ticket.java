@@ -6,6 +6,23 @@ public class Ticket {
     private int eventID;
     private int sectionID;
     private int seatID;
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
     private double price;
     User assignedUser;
     private boolean processing;
@@ -45,7 +62,7 @@ public class Ticket {
 
     }
 
-    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price) {
+    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price,String eventName) {
         TicketID = ticketID;
         this.eventID = eventID;
         this.sectionID = sectionID;
@@ -53,6 +70,7 @@ public class Ticket {
         this.price = price;
         this.assigned = assigned;
         this.processing = processing;
+        this.eventName=eventName;
         idCounter++;
     }
 
