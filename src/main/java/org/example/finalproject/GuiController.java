@@ -160,7 +160,7 @@ public class GuiController {
     }
 
     @FXML
-    public void loadRefundTable(ActionEvent event){
+    public void loadRefundTable(ActionEvent event) {
 
         Cell<String> id = new Cell<>();
         RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
@@ -169,12 +169,7 @@ public class GuiController {
         RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
         RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
         ObservableList<Ticket> refundList= RefundTable.getItems() ;
-
-            for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
-
-                refundList.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
-
-            }
+        refundList.add(new Ticket(1,1,2,12,3.12));
 
 
         RefundTable.setItems(refundList);
@@ -190,28 +185,12 @@ public class GuiController {
         SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
         SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
         ObservableList<Ticket> list= SearchTable.getItems() ;
-        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
 
-            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+        list.addAll(TicketSystem.getInstance().getUnassignedTicket());
 
-        }
 
         SearchTable.setItems(list);
         System.out.println("Table was loaded");
 
     }
-    @FXML
-    protected void RefundButtonClick(){
-
-
-    int selectedID = RefundTable.getSelectionModel().getSelectedIndex();
-    RefundTable.getItems().remove(selectedID);
-
-    GuiModel.ticketToRefund(RefundTable.getSelectionModel().getSelectedItem().getTicketID()+"");
-
-        ticketSystem.getUnassignedTicket().add(ticketSystem.getProcessedTickets().remove( ticketSystem.getProcessedTickets().indexOf(RefundTable.getSelectionModel().getSelectedItem())));
-
-    }
-
-
 }

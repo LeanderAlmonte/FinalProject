@@ -52,6 +52,5 @@ public class Technician {
 
     public void createEvent(EventFactoryProducer producer){
 
-
     }
 }

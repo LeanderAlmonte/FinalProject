@@ -9,14 +9,12 @@ import java.io.IOException;
 
 public class GUIApplication extends Application {
 
-     static TicketSystem ticketSystem;
+    TicketSystem ticketSystem;
 
     @Override
     public void start(Stage stage) throws IOException {
         ticketSystem = TicketSystem.getInstance();
-        GuiModel.loadUnsassignedTickets(ticketSystem);
-        GuiModel.loadProcessingTickets(ticketSystem);
-        GuiModel.loadAssignedTickets(ticketSystem);
+        GuiModel.loadUnsassignedTickets(TicketSystem.getInstance());
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("Log In.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Arena Ticket Booking System");
