@@ -17,7 +17,11 @@ public class Section {
         seats = new ArrayList<>();
 
         for(int i = 0; i < totalSeatsPerSection; i++){
-            seats.add(new Seat());
+         Seat  seat =  new Seat();
+            seats.add(seat);
+            GuiModel.insertTicket(new Ticket(i,1,sectionID,Seat.getSeatID(),100));
+
+
         }
 
         idCounter++;

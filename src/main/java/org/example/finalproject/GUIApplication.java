@@ -10,10 +10,12 @@ import java.io.IOException;
 public class GUIApplication extends Application {
 
      static TicketSystem ticketSystem;
-
+     static  User ActiveUser;
     @Override
     public void start(Stage stage) throws IOException {
+
         ticketSystem = TicketSystem.getInstance();
+
         GuiModel.loadUnsassignedTickets(ticketSystem);
         GuiModel.loadProcessingTickets(ticketSystem);
         GuiModel.loadAssignedTickets(ticketSystem);

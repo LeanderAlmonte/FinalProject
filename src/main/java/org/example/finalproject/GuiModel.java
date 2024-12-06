@@ -445,7 +445,7 @@ public static void insertTicket(Ticket ticket){
         }
     }
     public static void ticketToAssigned(String id,String uId) {
-        String sql = " UPDATE Ticket SET  Processing = false,Assigned = true,UserID="+uId+"WHERE TicketId = "+id;
+        String sql = " UPDATE Ticket SET  Processing = false,Assigned = true,UserID="+uId+" WHERE TicketId = "+id;
         try(Connection conn= connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -465,10 +465,25 @@ public static void insertTicket(Ticket ticket){
         }
     }
 
+    public static void loadUserTickets(User user){
+        String sql = "SELECT * FROM Ticket  WHERE Processing = false AND Assigned = true And UserID = "+ user.getUserID();
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+
+                user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                System.out.println("ticket Added");
+            }
+            System.out.println("Loaded Technician data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 public static void main(String[] args) {
-//UserTable();
-//TechTable();
+UserTable();
+TechTable();
 
 //    dropUserTable();
 //    dropTechTable();
@@ -480,23 +495,28 @@ public static void main(String[] args) {
 //ReceiptTable();
 
 //    dropTicketTable();
-//    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
- // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+ //   insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+// insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
-//    insertTechnician("John Doe", "doej","technician1");
-//    insertTechnician("Bruce Wayne", "wayneb","technician2");
+ //   insertTechnician("John Doe", "doej","technician1");
+  // insertTechnician("Bruce Wayne", "wayneb","technician2");
 
 //insertTicket(new Ticket(1,2,3,4,5));
 //Ticket t1 =     new Ticket(2,2,3,4,5);
 //t1.setAssigned(true);
 //Ticket t2 =     new Ticket(3,2,3,4,5);
-  //  t2.setProcessing(true);
-  //  insertTicket(t1);
+    //t2.setProcessing(true);
+    //insertTicket(t1);
    // insertTicket(t2);
-
-    displayUnsassignedTickets();
-    displayAssignedTickets();
-    displayProcessingTickets();
+//Ticket t3 = new Ticket(11,2,3,4,5);
+//insertTicket(t3);
+//ticketToAssigned("11","4");
+   // ticketToRefund("11");
+   // displayUsers();
+    //displayUnsassignedTickets();
+    //displayAssignedTickets();
+    //displayProcessingTickets();
+    displayAssignedTicketsByUser("2");
 }
 
 }

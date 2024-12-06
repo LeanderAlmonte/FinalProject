@@ -50,7 +50,11 @@ public class Technician {
         this.password = password;
     }
 
-    public void createEvent(EventFactoryProducer producer){
+    public void createEvent(EventFactory producer,String Type){
+         Event event = producer.getEvent(Type);
+         event.eventArena=  new Arena(event.getTotalSections());
+
 
     }
+
 }

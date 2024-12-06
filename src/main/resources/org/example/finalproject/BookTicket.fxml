@@ -29,13 +29,13 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="207.0" layoutY="22.0" />
+            <TextField fx:id="TicketBookField" layoutX="207.0" layoutY="22.0" />
             <Label alignment="CENTER" prefHeight="69.0" prefWidth="207.0" text="Enter TicketID of desired ticket:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="375.0" layoutY="22.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Confirm" />
+            <Button layoutX="375.0" layoutY="22.0" onAction="#BookTicket" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Confirm" />
             <Label alignment="CENTER" layoutX="14.0" layoutY="80.0" prefHeight="67.0" prefWidth="457.0" text="Label">
                <font>
                   <Font size="41.0" />
