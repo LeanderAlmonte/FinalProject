@@ -54,16 +54,15 @@ public class GuiModel {
         String sql = " create table if not exists Ticket (\n"
                 + "TicketID integer primary key, \n"
                 + "EventID integer not null, \n"
-                + "SeatID integer not null,\n"
                 + "UserID integer ,\n"
-                + "SectionID integer not null,\n"
+                + "SeatID int not null,\n"
+                + "SectionID int not null,\n"
                 + "Price double not null,\n"
                 + "Processing Boolean not null,\n"
                 + "Assigned Boolean not null,\n"
                 + " foreign key (UserID) references User (UserID) on delete set null, \n"
-                + " foreign key (EventID) references Event (EventID) on delete cascade, \n"
-                + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
-                + " foreign key (SeatID) references Seat (SeatID) on delete cascade \n);";
+                + " foreign key (EventID) references Event (EventID) on delete cascade \n"
+                + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -96,6 +95,7 @@ public static void insertTicket(Ticket ticket){
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
                 + " EventID integer primary key, \n"
+                + " eventType text not null, \n"
                 + " name text not null \n"
                 + ");";
         try(Connection conn = connect();
@@ -233,6 +233,45 @@ public static void insertTicket(Ticket ticket){
         }
     }
 
+    private static void insertIntoEventTable(int eventID, String eventType, String name) {
+        String sql = "INSERT INTO Event(EventID, eventType, name) VALUES(?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, eventID);
+            pstmt.setString(2, eventType);
+            pstmt.setString(3, name);
+            pstmt.executeUpdate();
+            System.out.println("Record inserted into Event table successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadEvents(TicketSystem system){
+        String sql = "select * from Event";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                if(rs.getString("EventType").equalsIgnoreCase("BasketballGame")){
+                    system.addEvent(new BasketballGame(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("Concert")){
+                    system.addEvent(new Concert(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("HockeyGame")){
+                    system.addEvent(new HockeyGame(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("Spectacle")){
+                    system.addEvent(new Spectacle(rs.getString("name"), rs.getString("eventType")));
+                }
+            }
+            System.out.println("Loaded Event data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void displayUsers() {
         String sql = "select * from User";
         try (Connection conn =connect(); Statement stmt = conn.createStatement();
@@ -333,6 +372,18 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+
+    private static void dropEventTable() {
+        String sql = "DROP TABLE IF EXISTS Event;";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Event table dropped successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static void loadUsers(TicketSystem system){
         String sql = "select * from User";
@@ -524,23 +575,24 @@ public static void main(String[] args) {
  // dropTechTable();
 //    dropUserTable();
 //    dropTechTable();
-
+//dropEventTable();
 //    dropReceiptTable();
 //    dropTicketTable();
 //    dropSeatTable();
 //    dropSectionTable();
 //    dropArenaTable();
 //EventTable();
-//ArenaTable();
-//SectionTable();
-//SeatTable();
 //TicketTable();
 //ReceiptTable();
 
 //    dropTicketTable();
+//    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+// insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
    //insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
   // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
+//    insertTechnician("John Doe", "doej","technician1");
+//   insertTechnician("Bruce Wayne", "wayneb","technician2");
   // insertTechnician("John Doe", "doej","technician1");
 //  insertTechnician("Bruce Wayne", "wayneb","technician2");
 
@@ -563,6 +615,8 @@ insertTicket(t1);
     //displayAssignedTickets();
   //displayUnsassignedTickets();
    //displayAssignedTicketsByUser("4");
+    //displayProcessingTickets();
+//    displayAssignedTicketsByUser("2");
 }
 
 }

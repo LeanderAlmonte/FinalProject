@@ -131,4 +131,8 @@ public  class TicketSystem {
     public void addProcessedTicket(Ticket ticket){
         processedTickets.add(ticket);
     }
+
+    public void addEvent(Event event) {
+        events.add(event);
+    }
 }

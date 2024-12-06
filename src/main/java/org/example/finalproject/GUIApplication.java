@@ -11,6 +11,9 @@ public class GUIApplication extends Application {
 
      static TicketSystem ticketSystem;
      static  User ActiveUser;
+
+     static Technician ActiveTechnician;
+
     @Override
     public void start(Stage stage) throws IOException {
 

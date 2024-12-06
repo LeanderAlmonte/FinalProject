@@ -8,10 +8,10 @@ public class EventFactory extends EventAbstractFactory{
             return null;
         }
         else if(eventType.equalsIgnoreCase("spectacle")){
-            return new Spectacle();
+            return new Spectacle(5,6, eventName);
         }
         else if(eventType.equalsIgnoreCase("concert")){
-            return new Concert();
+            return new Concert(3,10, eventName);
         }
         else{
             return null;

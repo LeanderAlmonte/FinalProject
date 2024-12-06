@@ -11,6 +11,7 @@ public class Ticket {
     private boolean processing;
     private boolean assigned;
     private String eventName;
+    private String eventType;
 
     public boolean isProcessing() {
         return processing;
@@ -31,13 +32,15 @@ public class Ticket {
     public Ticket(Event event, int sectionID, int seatID, double price) {
         this.TicketID = idCounter;
         this.eventID = event.getEventID();
+        this.eventName = event.getEventName();
+        this.eventType = event.getEventType();
         this.sectionID = sectionID;
         this.seatID = seatID;
         this.price = price;
         this.assigned = false;
         this.processing = false;
         this.assignedUser = null;
-        this.eventName = event.getEventName();
+
         idCounter++;
 
     }
