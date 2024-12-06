@@ -9,7 +9,7 @@ public  class TicketSystem {
    private static TicketSystem instance;
 
     private List<Ticket> unassignedTicket;
-    private Queue<Ticket> pendingTicket;
+    private List<Ticket> pendingTicket ;
     private List<Ticket> processedTickets;
 
     private List<Event> events;
@@ -21,9 +21,8 @@ public  class TicketSystem {
 
     private TicketSystem() {
         unassignedTicket = new ArrayList<>();
-        pendingTicket = new PriorityQueue<>();
         processedTickets = new ArrayList<>();
-
+        pendingTicket = new ArrayList<>();
         events = new ArrayList<>();
 
         users = new ArrayList<>();
@@ -54,11 +53,11 @@ public  class TicketSystem {
         this.unassignedTicket = unassignedTicket;
     }
 
-    public Queue<Ticket> getPendingTicket() {
+    public List<Ticket> getPendingTicket() {
         return pendingTicket;
     }
 
-    public void setPendingTicket(Queue<Ticket> pendingTicket) {
+    public void setPendingTicket(List<Ticket> pendingTicket) {
         this.pendingTicket = pendingTicket;
     }
 
