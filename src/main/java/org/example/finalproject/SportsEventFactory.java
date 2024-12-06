@@ -11,7 +11,7 @@ public class SportsEventFactory extends EventAbstractFactory {
             return new BasketballGame(5,5, eventName);
         }
         else if(eventType.equalsIgnoreCase("hockey")){
-            return new HockeyGame();
+            return new HockeyGame(5,7, eventName);
         }
         else{
             return null;

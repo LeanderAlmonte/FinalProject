@@ -60,10 +60,12 @@ public class Technician {
         this.password = password;
     }
 
-    public static void createEvent(String eventType, String eventName){
+    public void createEvent(String eventType, String eventName){
         EventAbstractFactory factory = EventFactoryProducer.getEventFactory(eventType);
 
         Event event = factory.getEvent(eventType, eventName);
+
+        TicketSystem.getInstance().addEvent(event);
 
 
     }

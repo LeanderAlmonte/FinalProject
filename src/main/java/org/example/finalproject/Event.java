@@ -8,7 +8,13 @@ public abstract class Event {
 
     Arena eventArena;
     protected String eventName;
+    protected String eventType;
     private int totalSections;
+
+    public Event(){
+        eventID = idCounter;
+        idCounter++;
+    }
 
     public int getEventID() {
         return eventID;
@@ -40,5 +46,13 @@ public abstract class Event {
 
     public void setTotalSections(int totalSections) {
         this.totalSections = totalSections;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 }

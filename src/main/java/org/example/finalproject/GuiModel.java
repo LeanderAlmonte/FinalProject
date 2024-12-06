@@ -95,6 +95,7 @@ public static void insertTicket(Ticket ticket){
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
                 + " EventID integer primary key, \n"
+                + " eventType text not null, \n"
                 + " name text not null \n"
                 + ");";
         try(Connection conn = connect();
@@ -232,6 +233,45 @@ public static void insertTicket(Ticket ticket){
         }
     }
 
+    private static void insertIntoEventTable(int eventID, String eventType, String name) {
+        String sql = "INSERT INTO Event(EventID, eventType, name) VALUES(?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, eventID);
+            pstmt.setString(2, eventType);
+            pstmt.setString(3, name);
+            pstmt.executeUpdate();
+            System.out.println("Record inserted into Event table successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadEvents(TicketSystem system){
+        String sql = "select * from Event";
+        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                if(rs.getString("EventType").equalsIgnoreCase("BasketballGame")){
+                    system.addEvent(new BasketballGame(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("Concert")){
+                    system.addEvent(new Concert(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("HockeyGame")){
+                    system.addEvent(new HockeyGame(rs.getString("name"), rs.getString("eventType")));
+                }
+                else if (rs.getString("EventType").equalsIgnoreCase("Spectacle")){
+                    system.addEvent(new Spectacle(rs.getString("name"), rs.getString("eventType")));
+                }
+            }
+            System.out.println("Loaded Event data to system");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void displayUsers() {
         String sql = "select * from User";
         try (Connection conn =connect(); Statement stmt = conn.createStatement();
@@ -332,6 +372,18 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+
+    private static void dropEventTable() {
+        String sql = "DROP TABLE IF EXISTS Event;";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Event table dropped successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static void loadUsers(TicketSystem system){
         String sql = "select * from User";
@@ -515,30 +567,27 @@ public static void insertTicket(Ticket ticket){
     }
 
 public static void main(String[] args) {
-UserTable();
-TechTable();
+//UserTable();
+//TechTable();
 
 //    dropUserTable();
 //    dropTechTable();
-
+//dropEventTable();
 //    dropReceiptTable();
 //    dropTicketTable();
 //    dropSeatTable();
 //    dropSectionTable();
 //    dropArenaTable();
 //EventTable();
-//ArenaTable();
-//SectionTable();
-//SeatTable();
 //TicketTable();
 //ReceiptTable();
 
 //    dropTicketTable();
- //   insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+//    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
 // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
- //   insertTechnician("John Doe", "doej","technician1");
-  // insertTechnician("Bruce Wayne", "wayneb","technician2");
+//    insertTechnician("John Doe", "doej","technician1");
+//   insertTechnician("Bruce Wayne", "wayneb","technician2");
 
 //insertTicket(new Ticket(1,2,3,4,5));
 //Ticket t1 =     new Ticket(2,2,3,4,5);
@@ -555,7 +604,7 @@ TechTable();
     //displayUnsassignedTickets();
     //displayAssignedTickets();
     //displayProcessingTickets();
-    displayAssignedTicketsByUser("2");
+//    displayAssignedTicketsByUser("2");
 }
 
 }

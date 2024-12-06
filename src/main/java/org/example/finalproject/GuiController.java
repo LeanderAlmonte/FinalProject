@@ -37,6 +37,17 @@ public class GuiController {
         this.ticketSystem = TicketSystem.getInstance();
     }
 
+    @FXML
+    private Label createEventErrorLabel;
+
+    @FXML
+    private TextField eventNameField;
+
+    @FXML
+    private ComboBox<String> eventTypeComboBox;
+
+    @FXML
+    private TextField TicketBookField;
 
     @FXML
     private Label welcomeText;
@@ -65,6 +76,13 @@ public class GuiController {
     private TableColumn<Ticket, Integer > RefundTableSeat;
     @FXML
     private TableColumn<Ticket, Double > RefundTablePrice;
+
+    @FXML
+    public void initialize() {
+        eventTypeComboBox.getItems().addAll("BasketballGame","Concert","HockeyGame","Spectacle");
+    }
+
+
     @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
@@ -86,6 +104,7 @@ public class GuiController {
         else if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null){
             if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
+                GUIApplication.ActiveTechnician = ticketSystem.getTechnicianByUsername(usernameTextField.getText());
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -113,8 +132,8 @@ public class GuiController {
     }
 
     @FXML
-    protected void onLogOutTechButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")));
+    protected void onBackTechButtonClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -244,9 +263,9 @@ public class GuiController {
         SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
         SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventName"));
         ObservableList<Ticket> list= SearchTable.getItems() ;
-        for(int i = 0  ; i<activeUser.getMyTickets().size();i++) {
+        for(int i = 0  ; i<GUIApplication.ActiveUser.getMyTickets().size();i++) {
 
-            list.add(activeUser.getMyTickets().get(i));
+            list.add(GUIApplication.ActiveUser.getMyTickets().get(i));
 
         }
 
@@ -282,6 +301,28 @@ public class GuiController {
 
 
 
+
+    }
+
+    @FXML
+    protected void onCreateButtonClick(ActionEvent event) {
+
+        if(eventNameField.getText().isEmpty()){
+            createEventErrorLabel.setText("Please enter event name");
+        }else{
+            GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue(),eventNameField.getText());
+            createEventErrorLabel.setText("Event Created Successfully");
+        }
+
+    }
+
+    @FXML
+    protected void oncEventButtonClick(ActionEvent event)  throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 }
