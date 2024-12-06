@@ -50,9 +50,10 @@ public class Technician {
         this.password = password;
     }
 
-    public void createEvent(EventFactory producer,String Type){
-         Event event = producer.getEvent(Type);
-         event.eventArena=  new Arena(event.getTotalSections());
+    public static void createEvent(String eventType, String eventName){
+        EventAbstractFactory factory = EventFactoryProducer.getEventFactory(eventType);
+
+        Event event = factory.getEvent(eventType, eventName);
 
 
     }

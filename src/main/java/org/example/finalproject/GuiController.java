@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GuiController {
-    public TableColumn<Ticket, Integer> SearchTicketID;
-    public TableColumn<Ticket, String> SearchEvent_Name;
-    public TableColumn<Ticket, Integer> SearchSection;
-    public TableColumn<Ticket, Integer> SearchSeat;
-    public TableColumn<Ticket, Double> SearchPrice;
+    public TableColumn<Ticket, Integer > SearchTicketID;
+    public TableColumn<Ticket, String > SearchEvent_Name;
+    public TableColumn<Ticket, Integer > SearchSection;
+    public TableColumn<Ticket, Integer > SearchSeat;
+    public TableColumn<Ticket, Double > SearchPrice;
     public TableView<Ticket> SearchTable;
     public TableView<Ticket> UserTable;
     public TableColumn<Ticket,Integer> UserTicketID;
@@ -30,7 +30,7 @@ public class GuiController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    public   TextField TicketBookField;
+
     TicketSystem ticketSystem;
 
     public GuiController() {
@@ -48,55 +48,57 @@ public class GuiController {
     private TextField usernameTextField;
 
     @FXML
+    private Label usernameUser;
+
+    @FXML
     private TextField passwordTextField;
 
     @FXML
     private TableView<Ticket> RefundTable;
     @FXML
-    private TableColumn<Ticket, Integer> RefundTableTicketID;
+    private TableColumn<Ticket, Integer > RefundTableTicketID;
     @FXML
-    private TableColumn<Ticket, String> RefundTableEvent_Name;
+    private TableColumn<Ticket, String > RefundTableEvent_Name;
     @FXML
-    private TableColumn<Ticket, Integer> RefundTableSection;
+    private TableColumn<Ticket, Integer > RefundTableSection;
     @FXML
-    private TableColumn<Ticket, Integer> RefundTableSeat;
+    private TableColumn<Ticket, Integer > RefundTableSeat;
     @FXML
-    private TableColumn<Ticket, Double> RefundTablePrice;
-
+    private TableColumn<Ticket, Double > RefundTablePrice;
     @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
         ticketSystem.displayUsers();
 
-        if (ticketSystem.getUserByUsername(usernameTextField.getText()) != null) {
-            if (ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
-
-                GUIApplication.ActiveUser = ticketSystem.getUserByUsername(usernameTextField.getText());
-                System.out.println("userID: "+GUIApplication.ActiveUser.getUserID());
-                GuiModel.loadUserTickets(GUIApplication.ActiveUser);
-                System.out.println("Tickets: ");
-                System.out.println( GUIApplication.ActiveUser.myTickets.toString());
+        if(ticketSystem.getUserByUsername(usernameTextField.getText()) != null){
+            if(ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
                 root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                GUIApplication.ActiveUser = ticketSystem.getUserByUsername(usernameTextField.getText());
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-            } else {
+            }
+            else{
                 errorLabel.setText("Incorrect Password");
             }
-        } else if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null) {
-            if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
+        }
+        else if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null){
+            if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-            } else {
+            }
+            else{
                 errorLabel.setText("Incorrect Password");
             }
-        } else if (usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
+        }
+        else if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()){
             errorLabel.setText("Username and Password are Empty");
-        } else {
+        }
+        else{
             errorLabel.setText("Invalid Username");
         }
     }
@@ -147,7 +149,7 @@ public class GuiController {
     }
 
     @FXML
-    protected void onSearchButtonClick(ActionEvent event) throws IOException {
+    protected void onSearchButtonClick(ActionEvent event)  throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -155,10 +157,11 @@ public class GuiController {
         stage.show();
 
 
+
     }
 
     @FXML
-    protected void onRefundButtonClick(ActionEvent event) throws IOException {
+    protected void onRefundButtonClick(ActionEvent event)  throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -167,22 +170,24 @@ public class GuiController {
 
     }
 
+
+
     @FXML
-    public void loadRefundTable(ActionEvent event) {
+    public void loadRefundTable(ActionEvent event){
 
         Cell<String> id = new Cell<>();
-        RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
-        RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
-        RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
-        RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-        RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
-        ObservableList<Ticket> refundList = RefundTable.getItems();
+        RefundTableTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        RefundTableSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        RefundTablePrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        RefundTableSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> refundList= RefundTable.getItems() ;
 
-        for (int i = 0; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
+            for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
 
-            refundList.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+                refundList.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
 
-        }
+            }
 
 
         RefundTable.setItems(refundList);
@@ -192,16 +197,56 @@ public class GuiController {
 
     public void loadSearchTable(ActionEvent event) {
 
-
-        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
-        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
-        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
-        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
-        ObservableList<Ticket> list = SearchTable.getItems();
-        for (int i = 0; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
 
             list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+
+        }
+
+        SearchTable.setItems(list);
+        System.out.println("Table was loaded");
+
+    }
+
+    public void loadReceiptTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+
+            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+
+        }
+
+        SearchTable.setItems(list);
+        System.out.println("Table was loaded");
+
+    }
+
+    public void loadTicketsTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventName"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+        for(int i = 0  ; i<activeUser.getMyTickets().size();i++) {
+
+            list.add(activeUser.getMyTickets().get(i));
 
         }
 

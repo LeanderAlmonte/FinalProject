@@ -5,4 +5,6 @@ public class Receipt {
     private int payment;
     User payedBy;
     Technician handledBy;
+
+
 }

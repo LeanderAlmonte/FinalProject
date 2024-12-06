@@ -12,6 +12,8 @@ public  class TicketSystem {
     private Queue<Ticket> pendingTicket;
     private List<Ticket> processedTickets;
 
+    private List<Event> events;
+
     private List<User> users;
     private List<Technician> technicians;
 
@@ -22,6 +24,8 @@ public  class TicketSystem {
         pendingTicket = new PriorityQueue<>();
         processedTickets = new ArrayList<>();
 
+        events = new ArrayList<>();
+
         users = new ArrayList<>();
         technicians = new ArrayList<>();
 
@@ -29,6 +33,9 @@ public  class TicketSystem {
 
         GuiModel.loadUsers(this);
         GuiModel.loadTechnicians(this);
+        GuiModel.loadUnsassignedTickets(this);
+        GuiModel.loadProcessingTickets(this);
+        GuiModel.loadAssignedTickets(this);
     }
 
 
@@ -95,7 +102,17 @@ public  class TicketSystem {
         }
     }
 
+    public static Event getEventByEventID(int eventId){
+        for (Event event: instance.events){
+            if(event.getEventID() == eventId){
+                return event;
+            }
+        }
+        return null;
+    }
+
     public void addUnassignedTicket(Ticket ticket){
+
         unassignedTicket.add(ticket);
     }
 

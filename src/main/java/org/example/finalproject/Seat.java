@@ -1,17 +1,25 @@
 package org.example.finalproject;
 
 public class Seat {
-    private static int seatID;
+    private int seatID;
 
-    public static int getSeatID() {
-        return seatID;
+    public Seat(int seatID, int sectionNumber, Event event, double price) {
+        this.seatID = seatID;
+
+        // Create a Ticket object
+        Ticket ticket = new Ticket(
+                event,
+                sectionNumber,
+                seatID,
+                price
+        );
+
+        // Add the ticket to the unassigned tickets in TicketSystem
+        TicketSystem.getInstance().addUnassignedTicket(ticket);
+        GuiModel.insertTicket(ticket);
     }
 
-    public static void setSeatID(int seatID) {
-        Seat.seatID = seatID;
-    }
 
-    public Seat() {
-        seatID++;
-    }
+
+
 }
