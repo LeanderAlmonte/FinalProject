@@ -334,7 +334,7 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -349,10 +349,10 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getPendingTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
-            System.out.println("Loaded Technician data to system");
+            System.out.println("Loaded Processing data to system");
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -363,10 +363,10 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price")));
+                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
-            System.out.println("Loaded Technician data to system");
+            System.out.println("Loaded AssignedTicket data to system");
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -449,7 +449,7 @@ public static void insertTicket(Ticket ticket){
         try(Connection conn= connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println(id+" has been removed to the database successfully");
+            System.out.println(id+" has been assigned to the user "+uId+" successfully");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -459,7 +459,7 @@ public static void insertTicket(Ticket ticket){
         try(Connection conn= connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println(id+" has been removed to the database successfully");
+            System.out.println("Ticket "+id+" has been refunded successfully");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -481,7 +481,7 @@ public static void main(String[] args) {
 
 //    dropTicketTable();
 //    insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
- // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+//  insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
 //
 //    insertTechnician("John Doe", "doej","technician1");
 //    insertTechnician("Bruce Wayne", "wayneb","technician2");
@@ -494,9 +494,9 @@ public static void main(String[] args) {
   //  insertTicket(t1);
    // insertTicket(t2);
 
-    displayUnsassignedTickets();
-    displayAssignedTickets();
-    displayProcessingTickets();
+//    displayUnsassignedTickets();
+//    displayAssignedTickets();
+//    displayProcessingTickets();
 }
 
 }

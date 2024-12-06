@@ -3,7 +3,7 @@ package org.example.finalproject;
 public class EventFactory extends EventAbstractFactory{
 
     @Override
-    public Event getEvent(String eventType){
+    public Event getEvent(String eventType, String eventName){
         if( eventType == null){
             return null;
         }

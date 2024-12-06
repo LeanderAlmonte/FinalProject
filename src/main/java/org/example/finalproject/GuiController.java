@@ -42,6 +42,9 @@ public class GuiController {
     private TextField usernameTextField;
 
     @FXML
+    private Label usernameUser;
+
+    @FXML
     private TextField passwordTextField;
 
     @FXML
@@ -56,6 +59,17 @@ public class GuiController {
     private TableColumn<Ticket, Integer > RefundTableSeat;
     @FXML
     private TableColumn<Ticket, Double > RefundTablePrice;
+
+    @FXML
+    private Label bookTicketStatusLabel;
+
+    @FXML
+    private TextField ticketIDTextField;
+
+    private User activeUser;
+
+    private Technician activeTechnician;
+
     @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
@@ -64,6 +78,7 @@ public class GuiController {
         if(ticketSystem.getUserByUsername(usernameTextField.getText()) != null){
             if(ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
                 root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                activeUser = ticketSystem.getUserByUsername(usernameTextField.getText());
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -160,6 +175,27 @@ public class GuiController {
     }
 
     @FXML
+    protected void confirmBookTicket(ActionEvent event) throws IOException {
+        if(ticketIDTextField.getText().isEmpty()){
+            errorLabel.setText("Please Enter Ticket ID");
+        }
+
+        for (Ticket ticket : ticketSystem.getUnassignedTicket()){
+            if(ticket.getTicketID() == Integer.parseInt(ticketIDTextField.getText())){
+                if(ticket.isProcessing() || ticket.isAssigned()){
+                    bookTicketStatusLabel.setText("Ticket is unavailable");
+                }
+                else{
+                    ticketSystem.addPendingTicket(ticket);
+                    bookTicketStatusLabel.setText("Ticket is being processed");
+                }
+            } else{
+                bookTicketStatusLabel.setText("Ticket does not exist");
+            }
+        }
+    }
+
+    @FXML
     public void loadRefundTable(ActionEvent event){
 
         Cell<String> id = new Cell<>();
@@ -170,9 +206,9 @@ public class GuiController {
         RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
         ObservableList<Ticket> refundList= RefundTable.getItems() ;
 
-            for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+            for(int i = 0  ; i<activeUser.getMyTickets().size();i++) {
 
-                refundList.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+                refundList.add(activeUser.getMyTickets().get(i));
 
             }
 
@@ -193,6 +229,46 @@ public class GuiController {
         for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
 
             list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+
+        }
+
+        SearchTable.setItems(list);
+        System.out.println("Table was loaded");
+
+    }
+
+    public void loadReceiptTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+
+            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
+
+        }
+
+        SearchTable.setItems(list);
+        System.out.println("Table was loaded");
+
+    }
+
+    public void loadTicketsTable(ActionEvent event) {
+
+        Cell<String> id = new Cell<>();
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventName"));
+        ObservableList<Ticket> list= SearchTable.getItems() ;
+        for(int i = 0  ; i<activeUser.getMyTickets().size();i++) {
+
+            list.add(activeUser.getMyTickets().get(i));
 
         }
 

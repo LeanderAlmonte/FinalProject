@@ -3,6 +3,7 @@ package org.example.finalproject;
 import java.util.Currency;
 
 public class Ticket {
+    private static int idCounter = 1;
     private int TicketID;
     private int eventID;
     private int sectionID;
@@ -11,6 +12,7 @@ public class Ticket {
     User assignedUser;
     private boolean processing;
     private boolean assigned;
+    private String eventName;
 
     public boolean isProcessing() {
         return processing;
@@ -28,21 +30,29 @@ public class Ticket {
         this.assigned = assigned;
     }
 
-    public Ticket(int eventID, int sectionID, int seatID, double price) {
-        this.eventID = eventID;
+    public Ticket(Event event, int sectionID, int seatID, double price) {
+        this.TicketID = idCounter;
+        this.eventID = event.getEventID();
         this.sectionID = sectionID;
         this.seatID = seatID;
         this.price = price;
         this.assigned = false;
         this.processing = false;
+        this.assignedUser = null;
+        this.eventName = event.getEventName();
+        idCounter++;
+
     }
 
-    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price) {
+    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price, boolean processing, boolean assigned) {
         TicketID = ticketID;
         this.eventID = eventID;
         this.sectionID = sectionID;
         this.seatID = seatID;
         this.price = price;
+        this.assigned = assigned;
+        this.processing = processing;
+        idCounter++;
     }
 
     public int getTicketID() {
