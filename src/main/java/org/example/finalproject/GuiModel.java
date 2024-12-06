@@ -73,16 +73,17 @@ public class GuiModel {
     }
 
 public static void insertTicket(Ticket ticket){
-    String sql = " insert into Ticket (TicketID,EventID,SeatID,SectionID,Price,Processing,Assigned) values (?, ?, ?, ?,?,?,?)";
+    String sql = " insert into Ticket (TicketID,EventID,UserID,SeatID,SectionID,Price,Processing,Assigned) values (?, ?, ?, ?,?,?,?, ?)";
     try(Connection conn= connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, ticket.getTicketID());
         pstmt.setInt(2, ticket.getEventID());
-        pstmt.setInt(3, ticket.getSeatID());
-        pstmt.setInt(4, ticket.getSectionID());
-        pstmt.setDouble(5, ticket.getPrice());
-        pstmt.setBoolean(6,ticket.isProcessing());
-        pstmt.setBoolean(7,ticket.isAssigned());
+        pstmt.setInt(3, ticket.getAssignedUser() != null ? ticket.getAssignedUser().getUserID() : -1);
+        pstmt.setInt(4, ticket.getSeatID());
+        pstmt.setInt(5, ticket.getSectionID());
+        pstmt.setDouble(6, ticket.getPrice());
+        pstmt.setBoolean(7,ticket.isProcessing());
+        pstmt.setBoolean(8,ticket.isAssigned());
         pstmt.executeUpdate();
         System.out.println("Ticket has been added");
     } catch (SQLException e) {
@@ -462,6 +463,8 @@ public static void insertTicket(Ticket ticket){
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
 
+            System.out.println("Displaying unAssigned Tickets");
+
             while(rs.next()){
                 System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
 
@@ -611,7 +614,7 @@ insertTicket(t1);
 //ticketToAssigned("11","4");
    // ticketToRefund("11");
    // displayUsers();
-    //displayUnsassignedTickets();
+//    displayUnsassignedTickets();
     //displayAssignedTickets();
   //displayUnsassignedTickets();
    //displayAssignedTicketsByUser("4");

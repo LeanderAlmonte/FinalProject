@@ -22,12 +22,13 @@ public class GuiController {
     public TableColumn<Ticket, Integer > SearchSection;
     public TableColumn<Ticket, Integer > SearchSeat;
     public TableColumn<Ticket, Double > SearchPrice;
+
     public TableView<Ticket> SearchTable;
     public TableView<Ticket> UserTable;
-    public TableColumn<Ticket,Integer> UserTicketID;
-    public TableColumn<Ticket,String > UserEvent;
+    public TableColumn<Ticket, Integer> UserTicketID;
+    public TableColumn<Ticket, String> UserEvent;
     public TableColumn<Ticket, Integer> UserSection;
-    public TableColumn<Ticket ,Integer> UserSeat;
+    public TableColumn<Ticket, Integer> UserSeat;
     public TableColumn<Ticket, Double> UserPrice;
     public TableView<Ticket> AssignTable;
     public TableColumn<Ticket, Integer> AssignTicketID;
@@ -53,9 +54,7 @@ public class GuiController {
     private TextField eventNameField;
 
     @FXML
-    private ComboBox eventTypeComboBox;
-
-
+    private ComboBox<String> eventTypeComboBox;
 
     @FXML
     private Label welcomeText;
@@ -75,20 +74,22 @@ public class GuiController {
     @FXML
     private TableView<Ticket> RefundTable;
     @FXML
-    private TableColumn<Ticket, Integer > RefundTableTicketID;
+    private TableColumn<Ticket, Integer> RefundTableTicketID;
     @FXML
-    private TableColumn<Ticket, String > RefundTableEvent_Name;
+    private TableColumn<Ticket, String> RefundTableEvent_Name;
     @FXML
-    private TableColumn<Ticket, Integer > RefundTableSection;
+    private TableColumn<Ticket, Integer> RefundTableSection;
     @FXML
-    private TableColumn<Ticket, Integer > RefundTableSeat;
+    private TableColumn<Ticket, Integer> RefundTableSeat;
     @FXML
-    private TableColumn<Ticket, Double > RefundTablePrice;
+    private TableColumn<Ticket, Double> RefundTablePrice;
 
-   // @FXML
-   // public void initialize() {
-       // eventTypeComboBox.getItems().addAll("BasketballGame","Concert","HockeyGame","Spectacle");
-   // }
+    @FXML
+    public void initialize() {
+        if (eventTypeComboBox != null) {
+            eventTypeComboBox.getItems().addAll("BasketballGame", "Concert", "HockeyGame", "Spectacle");
+        }
+    }
 
 
     @FXML
@@ -96,8 +97,8 @@ public class GuiController {
 
         ticketSystem.displayUsers();
 
-        if(ticketSystem.getUserByUsername(usernameTextField.getText()) != null){
-            if(ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
+        if (ticketSystem.getUserByUsername(usernameTextField.getText()) != null) {
+            if (ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
                 root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
                 GUIApplication.ActiveUser = ticketSystem.getUserByUsername(usernameTextField.getText());
                 GuiModel.loadUserTickets(GUIApplication.ActiveUser);
@@ -105,28 +106,23 @@ public class GuiController {
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-            }
-            else{
+            } else {
                 errorLabel.setText("Incorrect Password");
             }
-        }
-        else if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null){
-            if(ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())){
+        } else if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null) {
+            if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
                 GUIApplication.ActiveTechnician = ticketSystem.getTechnicianByUsername(usernameTextField.getText());
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-            }
-            else{
+            } else {
                 errorLabel.setText("Incorrect Password");
             }
-        }
-        else if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()){
+        } else if (usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
             errorLabel.setText("Username and Password are Empty");
-        }
-        else{
+        } else {
             errorLabel.setText("Invalid Username");
         }
     }
@@ -177,7 +173,7 @@ public class GuiController {
     }
 
     @FXML
-    protected void onSearchButtonClick(ActionEvent event)  throws IOException{
+    protected void onSearchButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -185,11 +181,10 @@ public class GuiController {
         stage.show();
 
 
-
     }
 
     @FXML
-    protected void onRefundButtonClick(ActionEvent event)  throws IOException{
+    protected void onRefundButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -199,9 +194,8 @@ public class GuiController {
     }
 
 
-
     @FXML
-    public void loadRefundTable(ActionEvent event){
+    public void loadRefundTable(ActionEvent event) {
 
         if(buttonpress<1) {
             buttonpress++;
@@ -214,9 +208,9 @@ public class GuiController {
 
             for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
 
-                refundList.add(GUIApplication.ActiveUser.myTickets.get(i));
+            refundList.add(GUIApplication.ActiveUser.myTickets.get(i));
 
-            }
+        }
 
 
             RefundTable.setItems(refundList);
@@ -251,13 +245,13 @@ if(buttonpress<1){
     public void loadReceiptTable(ActionEvent event) {
 
 
-        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
-        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
-        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
-        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventID"));
-        ObservableList<Ticket> list= SearchTable.getItems() ;
-        for(int i = 0  ; i<GUIApplication.ticketSystem.getUnassignedTicket().size();i++) {
+        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
+        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
+        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
+        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
+        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventID"));
+        ObservableList<Ticket> list = SearchTable.getItems();
+        for (int i = 0; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
 
             list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
 
@@ -309,7 +303,8 @@ if(buttonpress<1){
 
         }
     }
-    public void loadAssignTable(){
+
+    public void loadAssignTable() {
 
         if(buttonpress<1) {
             buttonpress++;
@@ -331,10 +326,9 @@ if(buttonpress<1){
         }
     }
 
-    public void BookTicket(ActionEvent event){
+    public void BookTicket(ActionEvent event) {
 
-       GuiModel.ticketToProcessing(TicketBookField.getText().trim(),GUIApplication.ActiveUser.getUserID()+"");
-
+        GuiModel.ticketToProcessing(TicketBookField.getText().trim(), GUIApplication.ActiveUser.getUserID() + "");
 
 
     }
@@ -355,17 +349,18 @@ if(buttonpress<1){
     @FXML
     protected void onCreateButtonClick(ActionEvent event) {
 
-        if(eventNameField.getText().isEmpty()){
+        if (eventNameField.getText().isEmpty()) {
             createEventErrorLabel.setText("Please enter event name");
-        }else{
-            GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue()+"",eventNameField.getText());
+        } else {
+            GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue(), eventNameField.getText());
             createEventErrorLabel.setText("Event Created Successfully");
+            GuiModel.displayUnsassignedTickets();
         }
 
     }
 
     @FXML
-    protected void oncEventButtonClick(ActionEvent event)  throws IOException {
+    protected void oncEventButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

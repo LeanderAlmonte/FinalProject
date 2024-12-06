@@ -35,6 +35,7 @@ public  class TicketSystem {
         GuiModel.loadUnsassignedTickets(this);
         GuiModel.loadProcessingTickets(this);
         GuiModel.loadAssignedTickets(this);
+        GuiModel.loadEvents(this);
     }
 
 

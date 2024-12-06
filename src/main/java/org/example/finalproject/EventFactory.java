@@ -7,10 +7,10 @@ public class EventFactory extends EventAbstractFactory{
         if( eventType == null){
             return null;
         }
-        else if(eventType.equalsIgnoreCase("spectacle")){
+        else if(eventType.equalsIgnoreCase("Spectacle")){
             return new Spectacle(5,6, eventName);
         }
-        else if(eventType.equalsIgnoreCase("concert")){
+        else if(eventType.equalsIgnoreCase("Concert")){
             return new Concert(3,10, eventName);
         }
         else{

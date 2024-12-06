@@ -7,10 +7,10 @@ public class SportsEventFactory extends EventAbstractFactory {
         if(eventType == null){
             return null;
         }
-        else if(eventType.equalsIgnoreCase("basketball")){
+        else if(eventType.equalsIgnoreCase("BasketballGame")){
             return new BasketballGame(5,5, eventName);
         }
-        else if(eventType.equalsIgnoreCase("hockey")){
+        else if(eventType.equalsIgnoreCase("HockeyGame")){
             return new HockeyGame(5,7, eventName);
         }
         else{
