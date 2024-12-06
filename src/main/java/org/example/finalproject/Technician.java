@@ -18,6 +18,16 @@ public class Technician {
         idCounter++;
     }
 
+    public Technician(int technicianID, String name, String username, String password) {
+
+        this.technicianID = technicianID;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+
+        idCounter++;
+    }
+
     public int getTechnicianID() {
         return technicianID;
     }

@@ -54,16 +54,15 @@ public class GuiModel {
         String sql = " create table if not exists Ticket (\n"
                 + "TicketID integer primary key, \n"
                 + "EventID integer not null, \n"
-                + "SeatID integer not null,\n"
                 + "UserID integer ,\n"
-                + "SectionID integer not null,\n"
+                + "SeatID int not null,\n"
+                + "SectionID int not null,\n"
                 + "Price double not null,\n"
                 + "Processing Boolean not null,\n"
                 + "Assigned Boolean not null,\n"
                 + " foreign key (UserID) references User (UserID) on delete set null, \n"
-                + " foreign key (EventID) references Event (EventID) on delete cascade, \n"
-                + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
-                + " foreign key (SeatID) references Seat (SeatID) on delete cascade \n);";
+                + " foreign key (EventID) references Event (EventID) on delete cascade \n"
+                + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -155,15 +154,15 @@ public static void insertTicket(Ticket ticket){
     private static void ReceiptTable(){
         String sql = " create table if not exists Receipt ( \n"
                 + " ReceiptID integer primary key, \n"
-                + " SectionID integer not null, \n"
-                + " SeatID integer not null, \n"
+                + " TicketID integer not null, \n"
+                + " SectionID int not null, \n"
+                + " SeatID int not null, \n"
                 + " UserID integer not null, \n"
                 + " TechnicianID integer not null, \n"
                 + " payment int not null, \n"
                 + " foreign key (TechnicianID) references Technician (TechnicianID) on delete cascade, \n"
                 + " foreign key (UserID) references User (UserID) on delete cascade, \n"
-                + " foreign key (SectionID) references Section (SectionID) on delete cascade, \n"
-                + " foreign key (SeatID) references Seat (SeatID) on delete cascade\n"
+                + " foreign key (TicketID) references Ticket (TicketID) on delete cascade \n"
                 + ");";
         try(Connection conn = connect();
             Statement stmt = conn.createStatement()) {
@@ -301,13 +300,46 @@ public static void insertTicket(Ticket ticket){
         }
     }
 
+    private static void dropArenaTable() {
+        String sql = "DROP TABLE IF EXISTS Arena;";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Arena table dropped successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void dropSectionTable() {
+        String sql = "DROP TABLE IF EXISTS Section;";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Section table dropped successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void dropSeatTable() {
+        String sql = "DROP TABLE IF EXISTS Seat;";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Seat table dropped successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void loadUsers(TicketSystem system){
         String sql = "select * from User";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.addUser(new User(rs.getString("name"),rs.getString("email"), rs.getString("username"),rs.getString("password")));
+                system.addUser(new User(rs.getInt("UserID"),rs.getString("name"),rs.getString("email"), rs.getString("username"),rs.getString("password")));
             }
             System.out.println("Loaded User data to system");
         }catch (SQLException e) {
@@ -321,7 +353,7 @@ public static void insertTicket(Ticket ticket){
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.addTechnician(new Technician(rs.getString("name"), rs.getString("username"),rs.getString("password")));
+                system.addTechnician(new Technician(rs.getInt("TechnicianID"),rs.getString("name"), rs.getString("username"),rs.getString("password")));
             }
             System.out.println("Loaded Technician data to system");
         }catch (SQLException e) {
@@ -488,6 +520,12 @@ TechTable();
 
 //    dropUserTable();
 //    dropTechTable();
+
+//    dropReceiptTable();
+//    dropTicketTable();
+//    dropSeatTable();
+//    dropSectionTable();
+//    dropArenaTable();
 //EventTable();
 //ArenaTable();
 //SectionTable();
