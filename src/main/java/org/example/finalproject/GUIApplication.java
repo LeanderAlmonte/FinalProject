@@ -16,7 +16,7 @@ public class GUIApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-//m
+
         ticketSystem = TicketSystem.getInstance();
 
         GuiModel.loadUnsassignedTickets(ticketSystem);
