@@ -10,7 +10,7 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00A36C;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="6.0" layoutY="174.0" prefHeight="53.0" prefWidth="235.0" text="Welcome, Technician" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="6.0" layoutY="174.0" prefHeight="53.0" prefWidth="235.0" text="Welcome" textFill="WHITE">
                <font>
                   <Font size="22.0" />
                </font>
@@ -27,7 +27,10 @@
       <AnchorPane prefHeight="400.0" prefWidth="448.0" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="209.0" layoutY="117.0" mnemonicParsing="false" onAction="#LoadAssign" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="Assign Ticket" textFill="WHITE" />
-            <Button layoutX="209.0" layoutY="212.0" mnemonicParsing="false" onAction="#loadDataView" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="View User Data" textFill="WHITE" />
+            <Button layoutX="209.0" layoutY="212.0" mnemonicParsing="false" onAction="#loadDataView" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="View Available Tickets" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
             <Button layoutX="32.0" layoutY="212.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="Log Out" textFill="WHITE" />
             <Button layoutX="32.0" layoutY="117.0" mnemonicParsing="false" onAction="#oncEventButtonClick" prefHeight="53.0" prefWidth="115.0" style="-fx-background-color: #00A36C;" text="Create Event" textFill="WHITE" />
          </children>

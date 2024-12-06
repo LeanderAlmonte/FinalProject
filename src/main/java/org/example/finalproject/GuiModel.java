@@ -565,7 +565,7 @@ public static void insertTicket(Ticket ticket){
                 user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
                 System.out.println("ticket Added");
             }
-            System.out.println("Loaded Technician data to system");
+            System.out.println("Loaded User data to system");
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -573,55 +573,18 @@ public static void insertTicket(Ticket ticket){
 
 
 public static void main(String[] args) {
-UserTable();
-TechTable();
-
-  // dropUserTable();
- // dropTechTable();
-//    dropUserTable();
-//    dropTechTable();
-//dropEventTable();
-//    dropReceiptTable();
-//    dropTicketTable();
-//    dropSeatTable();
-//    dropSectionTable();
-//    dropArenaTable();
-EventTable();
-TicketTable();
-//ReceiptTable();
-
-//    dropTicketTable();
- insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
- insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
-   //insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
-  // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+//UserTable();
+//TechTable();
 //
-  insertTechnician("John Doe", "doej","technician1");
-   insertTechnician("Bruce Wayne", "wayneb","technician2");
-  // insertTechnician("John Doe", "doej","technician1");
-//  insertTechnician("Bruce Wayne", "wayneb","technician2");
+//EventTable();
+//TicketTable();
 
-//insertTicket(new Ticket(1,2,3,4,5));
-//Ticket t1 =     new Ticket(58,2,3,4,5);
-//insertTicket(t1);
-//t1.setAssigned(true);
-//Ticket t2 =     new Ticket(3,2,3,4,5);
-   // t2.setProcessing(true);
-    //insertTicket(t1);
-   // insertTicket(t2);
-//Ticket t3 = new Ticket(13,2,3,4,5);
-//insertTicket(t3);
-//ticketToProcessing(t3.getTicketID()+"",4+"");
-//insertTicket(t3);
-//ticketToAssigned("11","4");
-   // ticketToRefund("11");
-   // displayUsers();
-   //displayUnsassignedTickets();
-    //displayAssignedTickets();
-  //displayUnsassignedTickets();
-   //displayAssignedTicketsByUser("4");
-    //displayProcessingTickets();
-//    displayAssignedTicketsByUser("2");
+// insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
+// insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+//
+//  insertTechnician("John Doe", "doej","technician1");
+//   insertTechnician("Bruce Wayne", "wayneb","technician2");
+
 }
 
 }

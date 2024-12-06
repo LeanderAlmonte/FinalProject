@@ -17,8 +17,6 @@ public  class TicketSystem {
     private List<User> users;
     private List<Technician> technicians;
 
-    private List<Receipt> receipts;
-
     private TicketSystem() {
         unassignedTicket = new ArrayList<>();
         processedTickets = new ArrayList<>();
@@ -27,8 +25,6 @@ public  class TicketSystem {
 
         users = new ArrayList<>();
         technicians = new ArrayList<>();
-
-        receipts = new ArrayList<>();
 
         GuiModel.loadUsers(this);
         GuiModel.loadTechnicians(this);

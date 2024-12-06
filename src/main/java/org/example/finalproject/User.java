@@ -11,7 +11,6 @@ public class User {
     private String username;
     private String password;
     List<Ticket> myTickets = new ArrayList<>();
-    List<Receipt> myReceipts = new ArrayList<>();
 
     public User(String name, String email, String username, String password) {
         userID = idCounter;
@@ -79,13 +78,5 @@ public class User {
 
     public void setMyTickets(List<Ticket> myTickets) {
         this.myTickets = myTickets;
-    }
-
-    public List<Receipt> getMyReceipts() {
-        return myReceipts;
-    }
-
-    public void setMyReceipts(List<Receipt> myReceipts) {
-        this.myReceipts = myReceipts;
     }
 }
