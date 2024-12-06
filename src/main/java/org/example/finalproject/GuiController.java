@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GuiController {
+
     int buttonpress = 0;
     public TableColumn<Ticket, Integer > SearchTicketID;
     public TableColumn<Ticket, String > SearchEvent_Name;
@@ -52,10 +53,9 @@ public class GuiController {
     private TextField eventNameField;
 
     @FXML
-    private ComboBox<String> eventTypeComboBox;
+    private ComboBox eventTypeComboBox;
 
-    @FXML
-    private TextField TicketBookField;
+
 
     @FXML
     private Label welcomeText;
@@ -85,10 +85,10 @@ public class GuiController {
     @FXML
     private TableColumn<Ticket, Double > RefundTablePrice;
 
-    @FXML
-    public void initialize() {
-        eventTypeComboBox.getItems().addAll("BasketballGame","Concert","HockeyGame","Spectacle");
-    }
+   // @FXML
+   // public void initialize() {
+       // eventTypeComboBox.getItems().addAll("BasketballGame","Concert","HockeyGame","Spectacle");
+   // }
 
 
     @FXML
@@ -358,20 +358,20 @@ if(buttonpress<1){
         if(eventNameField.getText().isEmpty()){
             createEventErrorLabel.setText("Please enter event name");
         }else{
-            GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue(),eventNameField.getText());
+            GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue()+"",eventNameField.getText());
             createEventErrorLabel.setText("Event Created Successfully");
         }
 
     }
 
     @FXML
-    protected void oncEventButtonClick(ActionEvent event)  throws IOException{
+    protected void oncEventButtonClick(ActionEvent event)  throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
+    }
     public void LoadAssign(ActionEvent event) throws IOException {
         buttonpress=0;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AssignTickets.fxml")));
@@ -409,5 +409,5 @@ if(buttonpress<1){
 
     }
 
-}
+
 
