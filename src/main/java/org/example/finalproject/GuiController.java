@@ -49,6 +49,11 @@ public class GuiController {
         this.ticketSystem = TicketSystem.getInstance();
     }
 
+    LocaleManager currentLocale;
+
+    @FXML
+    private Button langButton;
+
     @FXML
     private Button logInButton;
 
@@ -98,30 +103,16 @@ public class GuiController {
     @FXML
     public void initialize() {
 
-        i18n.loadBundle(new Locale("en","CA"));
-        updateUI();
-
         if (eventTypeComboBox != null) {
             eventTypeComboBox.getItems().addAll("BasketballGame", "Concert", "HockeyGame", "Spectacle");
         }
-        if (languageComboBox != null) {
-            languageComboBox.getItems().addAll("English", "Francais");
+    }
 
-            if (LocaleManager.getCurrentLocale().equals(new Locale("fr","CA"))) {
-                languageComboBox.setValue("Français");
-            } else {
-                languageComboBox.setValue("English");
-            }
-
-            languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.equals("Français")) {
-                    LocaleManager.setLocale(new Locale("fr","CA"));
-                } else {
-                    LocaleManager.setLocale(new Locale("en","CA"));
-                }
-                updateUI(); // Update UI after language change
-            });
-
+    private void onLangButtonClick(ActionEvent actionEvent) {
+        LocaleManager.loadLocale();
+        if(LocaleManager.getCurrentLocale() == LocaleManager.getEnLocale()) {
+            langButton.setText(LocaleManager.getString("langButtonText"));
+            updateUI();
         }
     }
 

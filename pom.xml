@@ -74,8 +74,10 @@
       <resource>
         <directory>src/main/resources</directory>
         <includes>
-          <include>**/*.properties</include>
+          <!-- Include all FXML files -->
           <include>**/*.fxml</include>
+          <!-- Include your ResourceBundle files -->
+          <include>**/*.properties</include>
         </includes>
       </resource>
     </resources>

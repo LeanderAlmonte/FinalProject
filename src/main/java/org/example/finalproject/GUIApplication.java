@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class GUIApplication extends Application {
 
@@ -19,10 +20,9 @@ public class GUIApplication extends Application {
 
         ticketSystem = TicketSystem.getInstance();
 
-//        GuiModel.loadUnsassignedTickets(ticketSystem);
-//        GuiModel.loadProcessingTickets(ticketSystem);
-//        GuiModel.loadAssignedTickets(ticketSystem);
-        FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("Log In.fxml"));
+        LocaleManager.loadLocale();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("Log In.fxml"), LocaleManager.getBundle());
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Arena Ticket Booking System");
         stage.setScene(scene);
