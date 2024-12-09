@@ -12,9 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class GuiController {
 
@@ -121,7 +119,7 @@ public class GuiController {
         projectTitle.setText(i18n.getString("projectTitle"));
     }
 
-
+    //Method to check  a user's log in credentials
     @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
@@ -157,6 +155,7 @@ public class GuiController {
         }
     }
 
+    //Method to log out
     @FXML
     protected void onLogOutButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")));
@@ -166,15 +165,7 @@ public class GuiController {
         stage.show();
     }
 
-    @FXML
-    protected void onBackTechButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    //Method to go back to the User main Menu
     @FXML
     protected void onBackUserButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserMainMenu.fxml")));
@@ -184,15 +175,7 @@ public class GuiController {
         stage.show();
     }
 
-    @FXML
-    protected void onBookTicketButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookTicket.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+//Method to go to the View Ticket Page
     @FXML
     protected void onViewTicketsButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewTickets.fxml")));
@@ -202,6 +185,7 @@ public class GuiController {
         stage.show();
     }
 
+//Method to go to the Search Page
     @FXML
     protected void onSearchButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")));
@@ -212,7 +196,7 @@ public class GuiController {
 
 
     }
-
+//Method to go to the Refund Ticket Page
     @FXML
     protected void onRefundButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")));
@@ -220,10 +204,9 @@ public class GuiController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
-
+// Mehthod to load data into the refund table
     @FXML
     public void loadRefundTable(ActionEvent event) {
 
@@ -237,12 +220,8 @@ public class GuiController {
             ObservableList<Ticket> refundList = RefundTable.getItems();
 
             for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
-
             refundList.add(GUIApplication.ActiveUser.myTickets.get(i));
-
         }
-
-
             RefundTable.setItems(refundList);
             System.out.println("Table was loaded");
         }
@@ -250,9 +229,8 @@ public class GuiController {
     }
 
     public void loadSearchTable(ActionEvent event) {
-
-if(buttonpress<1){
-    buttonpress++;
+        if (buttonpress < 1) {
+            buttonpress++;
             SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
             SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
             SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
@@ -272,47 +250,8 @@ if(buttonpress<1){
 
     }
 
-    public void loadReceiptTable(ActionEvent event) {
 
-
-        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
-        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("seatID"));
-        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket, Double>("price"));
-        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
-        ObservableList<Ticket> list = SearchTable.getItems();
-        for (int i = 0; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
-
-            list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
-
-        }
-
-        SearchTable.setItems(list);
-        System.out.println("Table was loaded");
-
-    }
-
-    public void loadTicketsTable(ActionEvent event) {
-
-
-        SearchTicketID.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("TicketID"));
-        SearchSeat.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("seatID"));
-        SearchPrice.setCellValueFactory(new PropertyValueFactory<Ticket,Double>("price"));
-        SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket,Integer>("sectionID"));
-        SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket,String>("eventName"));
-        ObservableList<Ticket> list= SearchTable.getItems() ;
-        for(int i = 0  ; i<GUIApplication.ActiveUser.getMyTickets().size();i++) {
-
-            list.add(GUIApplication.ActiveUser.getMyTickets().get(i));
-
-        }
-
-        SearchTable.setItems(list);
-        System.out.println("Table was loaded");
-
-    }
-
-
+//Method to load the table of the current user
     public void loadUserTickets(ActionEvent event) {
         if(buttonpress<1) {
             buttonpress++;
@@ -333,9 +272,8 @@ if(buttonpress<1){
 
         }
     }
-
+//Method that Loads data into the  Assign Table
     public void loadAssignTable() {
-
         if(buttonpress<1) {
             buttonpress++;
             AssignTicketID.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("TicketID"));
@@ -345,29 +283,18 @@ if(buttonpress<1){
             AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = AssignTable.getItems();
             for (int i = 0; i < GUIApplication.ticketSystem.getPendingTicket().size(); i++) {
-
                 list.add(GUIApplication.ticketSystem.getPendingTicket().get(i));
-
-
             }
-
             AssignTable.setItems(list);
             System.out.println("Table was loaded");
         }
     }
 
-    public void BookTicket(ActionEvent event) {
 
-        GuiModel.ticketToProcessing(TicketBookField.getText().trim(), GUIApplication.ActiveUser.getUserID() + "");
-
-
-    }
+    //Method that allows a user to Book a ticket
     public void BookTicketSearch(ActionEvent event){
-
         int selectedID = SearchTable.getSelectionModel().getSelectedIndex();
         GuiModel.ticketToProcessing(SearchTable.getItems().get(selectedID).getTicketID()+"",GUIApplication.ActiveUser.getUserID()+"");
-
-
       GUIApplication.ticketSystem.getPendingTicket().add(GUIApplication.ticketSystem.getUnassignedTicket().remove(GUIApplication.ticketSystem.getUnassignedTicket().indexOf(SearchTable.getItems().get(selectedID))));
         SearchTable.getItems().remove(selectedID);
 
@@ -375,10 +302,9 @@ if(buttonpress<1){
     }
 
 
-
+//Method that creates an Event
     @FXML
     protected void onCreateButtonClick(ActionEvent event) {
-
         if (eventNameField.getText().isEmpty()) {
             createEventErrorLabel.setText("Please enter event name");
         } else {
@@ -388,7 +314,7 @@ if(buttonpress<1){
         }
 
     }
-
+    //Method that opens the event Creation Page
     @FXML
     protected void oncEventButtonClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")));
@@ -397,6 +323,7 @@ if(buttonpress<1){
         stage.setScene(scene);
         stage.show();
     }
+    //Method that opens the Assign Ticket page
     public void LoadAssign(ActionEvent event) throws IOException {
         buttonpress=0;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AssignTickets.fxml")));
@@ -406,12 +333,14 @@ if(buttonpress<1){
         stage.show();
     }
 
+    //Method that assigns a ticket
     public void AssignTicket(ActionEvent event) {
         int selectedID = AssignTable.getSelectionModel().getSelectedIndex();
         GuiModel.ticketToAssigned(AssignTable.getItems().get(selectedID).getTicketID()+"");
      AssignTable.getItems().remove(selectedID);
         GUIApplication.ActiveUser.myTickets.add(GUIApplication.ticketSystem.getPendingTicket().remove(GUIApplication.ticketSystem.getPendingTicket().indexOf(AssignTable.getItems().get(selectedID))));
     }
+    //Method that loads the Technician Main Menu
     public void loadTechView(ActionEvent event) throws IOException {
         buttonpress=0;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
@@ -420,12 +349,10 @@ if(buttonpress<1){
         stage.setScene(scene);
         stage.show();
     }
+    //Method that allows a user to refund a table
     public void refundTicket(ActionEvent event){
-
         int selectedID = RefundTable.getSelectionModel().getSelectedIndex();
         GuiModel.ticketToRefund(RefundTable.getItems().get(selectedID).getTicketID()+"");
-
-
         GUIApplication.ticketSystem.getUnassignedTicket().add(GUIApplication.ActiveUser.myTickets.remove(GUIApplication.ActiveUser.myTickets.indexOf(RefundTable.getItems().get(selectedID))));
         RefundTable.getItems().remove(selectedID);
 
@@ -433,8 +360,8 @@ if(buttonpress<1){
 
     }
 
+    //Method that loads the Data page
     public void loadDataView(ActionEvent event) throws IOException {
-
         buttonpress=0;
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("data.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

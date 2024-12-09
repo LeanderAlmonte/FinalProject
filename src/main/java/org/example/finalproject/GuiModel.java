@@ -4,7 +4,7 @@ import java.sql.*;
 
 
 public class GuiModel {
-
+    //Establishing a connection to Sqlite
     private static Connection connect() {
         String url = "jdbc:sqlite:FinalProject.db";
         Connection conn = null;
@@ -16,7 +16,7 @@ public class GuiModel {
         }
         return conn;
     }
-
+    //Creation of the user Table
     private static void UserTable(){
         String sql = " create table if not exists User (\n"
                 + " UserID integer primary key, \n"
@@ -33,7 +33,7 @@ public class GuiModel {
             System.out.println(e.getMessage());
         }
     }
-
+    //Creation of the Technician Table
     private static void TechTable(){
         String sql = " create table if not exists Technician (\n"
                 + " TechnicianID integer primary key, \n"
@@ -49,7 +49,7 @@ public class GuiModel {
             System.out.println(e.getMessage());
         }
     }
-
+    //Creation of the Ticket table
     private static void TicketTable(){
         String sql = " create table if not exists Ticket (\n"
                 + "TicketID integer primary key, \n"
@@ -72,8 +72,8 @@ public class GuiModel {
             System.out.println(e.getMessage());
         }
     }
-
-public static void insertTicket(Ticket ticket){
+    //Method that inserts a new entry into the Ticket Table
+    public static void insertTicket(Ticket ticket){
     String sql = " insert into Ticket (TicketID,EventID,UserID,SeatID,SectionID,Price,Processing,Assigned,EventName) values (?, ?, ?, ?,?,?,?, ?,?)";
     try(Connection conn= connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -94,7 +94,7 @@ public static void insertTicket(Ticket ticket){
 
 
 }
-
+    //Creation of the event Table
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
                 + " EventID integer primary key, \n"
@@ -109,74 +109,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
-    private static void ArenaTable(){
-        String sql = " create table if not exists Arena ( \n"
-                + " ArenaID integer primary key, \n"
-                + " name text not null \n"
-                + ");";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println(" Arena table created successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void SectionTable(){
-        String sql = " create table if not exists Section ( \n"
-                + " SectionID integer primary key, \n"
-                + " name text not null, \n"
-                + " ArenaID integer not null,\n"
-                + " foreign key (ArenaID) references Arena (ArenaID) on delete cascade\n"
-                + ");";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println(" Section table created successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void SeatTable(){
-        String sql = " create table if not exists Seat ( \n"
-                + " SeatID integer primary key, \n"
-                + " SectionID integer not null, \n"
-                + " foreign key (SectionID) references Section (SectionID) on delete cascade\n"
-                + ");";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println(" Seat table created successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void ReceiptTable(){
-        String sql = " create table if not exists Receipt ( \n"
-                + " ReceiptID integer primary key, \n"
-                + " TicketID integer not null, \n"
-                + " SectionID int not null, \n"
-                + " SeatID int not null, \n"
-                + " UserID integer not null, \n"
-                + " TechnicianID integer not null, \n"
-                + " payment int not null, \n"
-                + " foreign key (TechnicianID) references Technician (TechnicianID) on delete cascade, \n"
-                + " foreign key (UserID) references User (UserID) on delete cascade, \n"
-                + " foreign key (TicketID) references Ticket (TicketID) on delete cascade \n"
-                + ");";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println(" Receipt table created successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    //Method that inserts a User
     public static void insertUser(String name, String email, String username, String password) {
         String sql = " insert into User (name,email,username,password) values (?, ?, ?, ?)";
         try(Connection conn= connect();
@@ -191,18 +124,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
-    public static void deleteUserById(String id) {
-        String sql = " DELETE FROM User WHERE UserID = "+id;
-        try(Connection conn= connect();
-            Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println(id+" has been removed to the database successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-//DELETE FROM table_name WHERE condition
+    //Method that inserts a Technician
     public static void insertTechnician(String name, String username, String password) {
         String sql = " insert into Technician (name, username, password) values (?, ?, ?)";
         try(Connection conn= connect();
@@ -216,6 +138,18 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that uses an ID to delete a specific user
+    public static void deleteUserById(String id) {
+        String sql = " DELETE FROM User WHERE UserID = "+id;
+        try(Connection conn= connect();
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println(id+" has been removed to the database successfully");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    //Method that uses an ID to delete a specific technician
     public static void deleteTechnicianById(String id) {
         String sql = " DELETE FROM Technician WHERE TechnicianID = "+id;
         try(Connection conn= connect();
@@ -226,6 +160,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that uses an ID to deletes every User
     public static void deleteUsers() {
         String sql = "delete from User";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -235,7 +170,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
+    //Method that inserts an Event
     private static void insertIntoEventTable(int eventID, String eventType, String name) {
         String sql = "INSERT INTO Event(EventID, eventType, name) VALUES(?, ?, ?)";
         try (Connection conn = connect();
@@ -249,7 +184,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
+    //Method that load every event
     public static void loadEvents(TicketSystem system){
         String sql = "select * from Event";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -274,42 +209,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
-    public static void displayUsers() {
-        String sql = "select * from User";
-        try (Connection conn =connect(); Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            System.out.println(" User :");
-            while(rs.next()) {
-                System.out.println("Id : " + rs.getInt("UserID") + ", Name: " + rs.getString("name") + " " +
-                        ", Email : " + rs.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropReceiptTable(){
-        String sql = " drop table Receipt";
-        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
-            stmt.execute(sql);
-            System.out.println("Receipt table dropped successfully");
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropTicketTable(){
-        String sql = " drop table Ticket";
-        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
-            stmt.execute(sql);
-            System.out.println("Ticket table dropped successfully");
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    //Method that deletes a specific ticket using an Id
     public static void deleteTicketById(String id) {
         String sql = " DELETE FROM Ticket WHERE TicketID = "+id;
         try(Connection conn= connect();
@@ -320,74 +220,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
-    private static void dropUserTable(){
-        String sql = " drop table User";
-        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
-            stmt.execute(sql);
-            System.out.println("User table dropped successfully");
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropTechTable(){
-        String sql = " drop table Technician";
-        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
-            stmt.execute(sql);
-            System.out.println("Technician table dropped successfully");
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropArenaTable() {
-        String sql = "DROP TABLE IF EXISTS Arena;";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Arena table dropped successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropSectionTable() {
-        String sql = "DROP TABLE IF EXISTS Section;";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Section table dropped successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropSeatTable() {
-        String sql = "DROP TABLE IF EXISTS Seat;";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Seat table dropped successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void dropEventTable() {
-        String sql = "DROP TABLE IF EXISTS Event;";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Event table dropped successfully");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
+    //Method that loads Every user into the User list
     public static void loadUsers(TicketSystem system){
         String sql = "select * from User";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -401,7 +234,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
+    //Method that loads Every technician into the technician list
     public static void loadTechnicians(TicketSystem system){
         String sql = "select * from Technician";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -415,6 +248,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that loads unassigned Tickets
     public static void loadUnsassignedTickets(TicketSystem system){
         String sql = "select * from Ticket WHERE Processing = false AND Assigned = false;";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -429,7 +263,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
+    //Method that loads ProcessingTickets Tickets
     public static void loadProcessingTickets(TicketSystem system){
         String sql = "select * from Ticket WHERE Processing = true AND Assigned = false;";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -444,6 +278,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that loads Assigned Tickets
     public static void loadAssignedTickets(TicketSystem system){
         String sql = "select * from Ticket WHERE Processing = false AND Assigned = true;";
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){
@@ -458,72 +293,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
-    public static void displayUnsassignedTickets(){
-        String sql = "SELECT * FROM Ticket  WHERE Processing = false AND Assigned = false;";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)){
-
-            System.out.println("Displaying unAssigned Tickets");
-
-            while(rs.next()){
-                System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
-
-            }
-
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public static void displayProcessingTickets(){
-        String sql = "SELECT * FROM Ticket  WHERE Processing = true AND Assigned = false";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)){
-
-            while(rs.next()){
-                System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
-
-            }
-
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void displayAssignedTickets(){
-        String sql = "SELECT * FROM Ticket  WHERE Processing = false AND Assigned = true;";
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)){
-
-            while(rs.next()){
-                System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
-
-            }
-
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public static void displayAssignedTicketsByUser(String id){
-        String sql = "SELECT * FROM Ticket  WHERE Processing = false AND Assigned = true And UserID = "+ id;
-        try(Connection conn = connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)){
-
-            while(rs.next()){
-                System.out.println(rs.getInt("TicketID")+" "+ rs.getInt("EventID")+" "+rs.getInt("SectionID")+" "+rs.getInt("SeatID")+" "+rs.getDouble("Price"));
-
-            }
-
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    //asd
-
+    //Method that changes a ticket Unassigned -> Processing
     public static void ticketToProcessing(String id ,String uId) {
         String sql = " UPDATE Ticket SET  Processing = true,Assigned = false,UserID = "+uId+" WHERE TicketId = "+id;
         try(Connection conn= connect();
@@ -534,6 +304,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that changes a ticket Processing -> Assigned
     public static void ticketToAssigned(String id) {
         String sql = " UPDATE Ticket SET  Processing = false, Assigned = true WHERE TicketId = "+id;
         try(Connection conn= connect();
@@ -544,6 +315,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
+    //Method that changes a ticket Assigned -> Unassigned
     public static void ticketToRefund(String id) {
         String sql = " UPDATE Ticket SET  Processing = false,Assigned = false WHERE TicketId = "+id;
         try(Connection conn= connect();
@@ -554,7 +326,7 @@ public static void insertTicket(Ticket ticket){
             System.out.println(e.getMessage());
         }
     }
-
+    //Method that loads the ticket of a specific User
     public static void loadUserTickets(User user){
         String sql = "SELECT * FROM Ticket  WHERE Processing = false AND Assigned = true And UserID = "+ user.getUserID();
         try(Connection conn = connect(); Statement stmt = conn.createStatement()){

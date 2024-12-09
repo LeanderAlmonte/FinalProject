@@ -9,15 +9,14 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class GUIApplication extends Application {
-
+    // creating the object that are used in the Form
      static TicketSystem ticketSystem;
      static  User ActiveUser;
-
      static Technician ActiveTechnician;
 
     @Override
     public void start(Stage stage) throws IOException {
-
+        //  assigning a value to ticketSystem
         ticketSystem = TicketSystem.getInstance();
 
         LocaleManager.loadLocale();

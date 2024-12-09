@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    //increments the user ID
     private static int idCounter = 1;
+    //Class Members
     private int userID;
     private String name;
     private String email;
     private String username;
     private String password;
     List<Ticket> myTickets = new ArrayList<>();
-
+    //User Constructors
     public User(String name, String email, String username, String password) {
         userID = idCounter;
         this.name = name;
@@ -21,7 +23,7 @@ public class User {
 
         idCounter++;
     }
-
+    //Constructor without a user ID
     public User(int userID,String name, String email, String username, String password) {
         this.userID = userID;
         this.name = name;
@@ -31,7 +33,7 @@ public class User {
 
         idCounter++;
     }
-
+//Getter Setter Methods for the class Members
     public int getUserID() {
         return userID;
     }

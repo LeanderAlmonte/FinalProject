@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.finalproject.GuiController">
    <children>
-      <TableView fx:id="AssignTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <TableView fx:id="AssignTable"  prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <columns>
           <TableColumn fx:id="AssignTicketID" prefWidth="75.0" text="TicketID" />
           <TableColumn fx:id="AssignEvent" prefWidth="253.0" text="Event Name" />
@@ -23,8 +23,8 @@
             <Font name="Lucida Sans Unicode" size="53.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadTechView" text="Back" />
-      <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#loadAssignTable" text="load" />
-      <Button layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#AssignTicket" text="Assign" />
+      <Button fx:id="AssignReturnButton" alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadTechView" text="Back" />
+      <Button fx:id="AssignLoad" layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#loadAssignTable" text="load" />
+      <Button fx:id="AssignButton" layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#AssignTicket" text="Assign" />
    </children>
 </AnchorPane>
