@@ -51,6 +51,48 @@ public class GuiController {
 
     LocaleManager currentLocale;
 
+//    @FXML
+//    private Button backRefundbutton;
+//
+//    @FXML
+//    private Button loadRefundbutton;
+//
+//    @FXML
+//    private Button refundButton;
+//
+//    @FXML
+//    private Label
+
+    @FXML
+    private Button searchBackButton;
+
+    @FXML
+    private Button loadSearchTicketButton;
+
+    @FXML
+    private Button bookButton;
+
+    @FXML
+    private Label searchTitle;
+
+    @FXML
+    private Button logOutButton;
+
+    @FXML
+    private Button refundTicket;
+
+    @FXML
+    private Button viewTicket;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Label projectTitleUser;
+
+    @FXML
+    private Label welcomeTextUser;
+
     @FXML
     private Button langButton;
 
@@ -59,9 +101,6 @@ public class GuiController {
 
     @FXML
     private Label projectTitle;
-
-    @FXML
-    private ComboBox<String> languageComboBox;
 
     @FXML
     private Label createEventErrorLabel;
@@ -108,28 +147,50 @@ public class GuiController {
         }
     }
 
-    private void onLangButtonClick(ActionEvent actionEvent) {
+    @FXML
+    protected void onLangButtonClick(ActionEvent actionEvent) {
         LocaleManager.loadLocale();
         if(LocaleManager.getCurrentLocale() == LocaleManager.getEnLocale()) {
-            langButton.setText(LocaleManager.getString("langButtonText"));
+            LocaleManager.setLocale(LocaleManager.getFrLocale());
+            updateUI();
+        }
+        else{
+            LocaleManager.setLocale(LocaleManager.getEnLocale());
             updateUI();
         }
     }
 
     private void updateUI() {
-        logInButton.setText(i18n.getString("logInButton"));
-        projectTitle.setText(i18n.getString("projectTitle"));
+        if (logInButton != null) {
+            logInButton.setText(LocaleManager.getString("logInButton"));
+        }
+
+        if (langButton != null) {
+            langButton.setText(LocaleManager.getString("langButtonText"));
+        }
+
+        if (projectTitle != null) {
+            projectTitle.setText(LocaleManager.getString("projectTitle"));
+        }
+
+        if (usernameTextField != null) {
+            usernameTextField.setPromptText(LocaleManager.getString("usernamePlaceholder"));
+        }
+
+
     }
 
 
     @FXML
     protected void onLogInButtonClick(ActionEvent event) throws IOException {
 
+        LocaleManager.loadLocale();
+
         ticketSystem.displayUsers();
 
         if (ticketSystem.getUserByUsername(usernameTextField.getText()) != null) {
             if (ticketSystem.getUserByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
-                root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"), LocaleManager.getBundle());
                 GUIApplication.ActiveUser = ticketSystem.getUserByUsername(usernameTextField.getText());
                 GuiModel.loadUserTickets(GUIApplication.ActiveUser);
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -137,29 +198,29 @@ public class GuiController {
                 stage.setScene(scene);
                 stage.show();
             } else {
-                errorLabel.setText("Incorrect Password");
+                errorLabel.setText(LocaleManager.getString("errorPass"));
             }
         } else if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()) != null) {
             if (ticketSystem.getTechnicianByUsername(usernameTextField.getText()).getPassword().equals(passwordTextField.getText())) {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")), LocaleManager.getBundle());
                 GUIApplication.ActiveTechnician = ticketSystem.getTechnicianByUsername(usernameTextField.getText());
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             } else {
-                errorLabel.setText("Incorrect Password");
+                errorLabel.setText(LocaleManager.getString("errorPass"));
             }
         } else if (usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
-            errorLabel.setText("Username and Password are Empty");
+            errorLabel.setText(LocaleManager.getString("errorUsernamePass"));
         } else {
-            errorLabel.setText("Invalid Username");
+            errorLabel.setText(LocaleManager.getString("errorUsername"));
         }
     }
 
     @FXML
     protected void onLogOutButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Log In.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -168,7 +229,7 @@ public class GuiController {
 
     @FXML
     protected void onBackTechButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -177,7 +238,7 @@ public class GuiController {
 
     @FXML
     protected void onBackUserButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserMainMenu.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserMainMenu.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -186,7 +247,7 @@ public class GuiController {
 
     @FXML
     protected void onBookTicketButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookTicket.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookTicket.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -195,7 +256,7 @@ public class GuiController {
 
     @FXML
     protected void onViewTicketsButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewTickets.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewTickets.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -204,7 +265,7 @@ public class GuiController {
 
     @FXML
     protected void onSearchButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchTicket.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -215,7 +276,7 @@ public class GuiController {
 
     @FXML
     protected void onRefundButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RefundTicket.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -380,10 +441,10 @@ if(buttonpress<1){
     protected void onCreateButtonClick(ActionEvent event) {
 
         if (eventNameField.getText().isEmpty()) {
-            createEventErrorLabel.setText("Please enter event name");
+            createEventErrorLabel.setText(LocaleManager.getString("createEventError"));
         } else {
             GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue(), eventNameField.getText());
-            createEventErrorLabel.setText("Event Created Successfully");
+            createEventErrorLabel.setText(LocaleManager.getString("eventSuccess"));
             GuiModel.displayUnsassignedTickets();
         }
 
@@ -391,7 +452,7 @@ if(buttonpress<1){
 
     @FXML
     protected void oncEventButtonClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateEvent.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -399,7 +460,7 @@ if(buttonpress<1){
     }
     public void LoadAssign(ActionEvent event) throws IOException {
         buttonpress=0;
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AssignTickets.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AssignTickets.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -414,7 +475,7 @@ if(buttonpress<1){
     }
     public void loadTechView(ActionEvent event) throws IOException {
         buttonpress=0;
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TechnicianMainMenu.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -436,7 +497,7 @@ if(buttonpress<1){
     public void loadDataView(ActionEvent event) throws IOException {
 
         buttonpress=0;
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("data.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("data.fxml")), LocaleManager.getBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

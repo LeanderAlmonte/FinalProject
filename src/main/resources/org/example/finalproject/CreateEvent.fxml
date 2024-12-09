@@ -12,9 +12,9 @@
    <top>
       <AnchorPane prefHeight="173.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutY="-2.0" prefHeight="173.0" prefWidth="600.0" style="-fx-background-color: #00A36C;" text="Create Event" textFill="WHITE">
+            <Label alignment="CENTER" layoutY="-2.0" prefHeight="173.0" prefWidth="600.0" style="-fx-background-color: #00A36C;" text="%createEventTitle" textFill="WHITE">
                <font>
-                  <Font size="89.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
          </children>
@@ -23,23 +23,23 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="eventTypeComboBox" layoutX="225.0" layoutY="48.0" prefHeight="30.0" prefWidth="184.0" promptText="Event Type" />
-            <TextField fx:id="eventNameField" layoutX="226.0" layoutY="130.0" prefHeight="28.0" prefWidth="184.0" promptText="EventName" />
-            <Label layoutX="95.0" layoutY="48.0" prefHeight="31.0" prefWidth="120.0" text="Event Type :">
+            <ComboBox fx:id="eventTypeComboBox" layoutX="225.0" layoutY="48.0" prefHeight="30.0" prefWidth="184.0" promptText="%eventTypePlaceholder" />
+            <TextField fx:id="eventNameField" layoutX="226.0" layoutY="130.0" prefHeight="28.0" prefWidth="184.0" promptText="%eventNamePlaceholder" />
+            <Label layoutX="62.0" layoutY="48.0" prefHeight="31.0" prefWidth="162.0" text="%eventTypeLabel">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="95.0" layoutY="129.0" prefHeight="31.0" prefWidth="120.0" text="Event Name :">
+            <Label layoutX="62.0" layoutY="129.0" prefHeight="31.0" prefWidth="162.0" text="%eventNameLabel">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="441.0" layoutY="89.0" mnemonicParsing="false" onAction="#onCreateButtonClick" prefHeight="31.0" prefWidth="135.0" text="Create" />
-            <Button layoutY="2.0" mnemonicParsing="false" onAction="#onBackTechButtonClick" text="Go Back" />
+            <Button layoutX="441.0" layoutY="89.0" mnemonicParsing="false" onAction="#onCreateButtonClick" prefHeight="31.0" prefWidth="135.0" text="%createButton" />
+            <Button layoutY="2.0" mnemonicParsing="false" onAction="#onBackTechButtonClick" text="%backSearchButton" />
             <Label fx:id="createEventErrorLabel" alignment="CENTER" layoutX="95.0" layoutY="169.0" prefHeight="48.0" prefWidth="318.0">
                <font>
-                  <Font size="32.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>

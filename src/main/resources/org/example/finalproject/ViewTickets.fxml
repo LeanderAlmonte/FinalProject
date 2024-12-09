@@ -11,19 +11,19 @@
    <children>
       <TableView fx:id="UserTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <columns>
-          <TableColumn fx:id="UserTicketID" prefWidth="75.0" text="TicketID" />
-          <TableColumn fx:id="UserEvent" prefWidth="253.0" text="Event Name" />
-            <TableColumn fx:id="UserSection" prefWidth="88.0" text="Section" />
-            <TableColumn fx:id="UserSeat" prefWidth="88.5" text="Seat" />
-            <TableColumn fx:id="UserPrice" prefWidth="94.5" text="Price" />
+          <TableColumn fx:id="UserTicketID" prefWidth="75.0" text="%tableTicketID" />
+          <TableColumn fx:id="UserEvent" prefWidth="253.0" text="%tableEventName" />
+            <TableColumn fx:id="UserSection" prefWidth="88.0" text="%tableSection" />
+            <TableColumn fx:id="UserSeat" prefWidth="88.5" text="%tableSeat" />
+            <TableColumn fx:id="UserPrice" prefWidth="94.5" text="%tablePrice" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="-1.0" layoutY="-2.0" prefHeight="103.0" prefWidth="600.0" style="-fx-background-color: #00008B;" text="Your Tickets" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="-2.0" prefHeight="103.0" prefWidth="600.0" style="-fx-background-color: #00008B;" text="%yourTicketsTitle" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Lucida Sans Unicode" size="53.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackUserButtonClick" text="Back" />
-      <Button layoutX="14.0" layoutY="63.0" onAction="#loadUserTickets" mnemonicParsing="false" text="load" />
+      <Button alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackUserButtonClick" text="%backSearchButton" />
+      <Button layoutX="14.0" layoutY="63.0" onAction="#loadUserTickets" mnemonicParsing="false" text="%loadSearchButton" />
    </children>
 </AnchorPane>
