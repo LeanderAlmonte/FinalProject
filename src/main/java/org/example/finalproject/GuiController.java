@@ -12,7 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class GuiController {
 
@@ -46,6 +48,15 @@ public class GuiController {
     public GuiController() {
         this.ticketSystem = TicketSystem.getInstance();
     }
+
+    @FXML
+    private Button logInButton;
+
+    @FXML
+    private Label projectTitle;
+
+    @FXML
+    private ComboBox<String> languageComboBox;
 
     @FXML
     private Label createEventErrorLabel;
@@ -86,9 +97,37 @@ public class GuiController {
 
     @FXML
     public void initialize() {
+
+        i18n.loadBundle(new Locale("en","CA"));
+        updateUI();
+
         if (eventTypeComboBox != null) {
             eventTypeComboBox.getItems().addAll("BasketballGame", "Concert", "HockeyGame", "Spectacle");
         }
+        if (languageComboBox != null) {
+            languageComboBox.getItems().addAll("English", "Francais");
+
+            if (LocaleManager.getCurrentLocale().equals(new Locale("fr","CA"))) {
+                languageComboBox.setValue("Français");
+            } else {
+                languageComboBox.setValue("English");
+            }
+
+            languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.equals("Français")) {
+                    LocaleManager.setLocale(new Locale("fr","CA"));
+                } else {
+                    LocaleManager.setLocale(new Locale("en","CA"));
+                }
+                updateUI(); // Update UI after language change
+            });
+
+        }
+    }
+
+    private void updateUI() {
+        logInButton.setText(i18n.getString("logInButton"));
+        projectTitle.setText(i18n.getString("projectTitle"));
     }
 
 
