@@ -355,11 +355,11 @@ public static void main(String[] args) {
 //TechTable();
 //
 //EventTable();
-TicketTable();
+//TicketTable();
 //    dropTicketTable();
 
-// insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
-// insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
+// insertUser(new User("Leander Almonte", "almontel@gmail.com", "almontel","user1"));
+// insertUser(new User("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2"));
 //
 //  insertTechnician("John Doe", "doej","technician1");
 //   insertTechnician("Bruce Wayne", "wayneb","technician2");
