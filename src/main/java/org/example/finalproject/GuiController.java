@@ -403,8 +403,8 @@ public class GuiController {
     public void AssignTicket(ActionEvent event) {
         int selectedID = AssignTable.getSelectionModel().getSelectedIndex();
         GuiModel.ticketToAssigned(AssignTable.getItems().get(selectedID).getTicketID()+"");
-     AssignTable.getItems().remove(selectedID);
         GUIApplication.ActiveUser.myTickets.add(GUIApplication.ticketSystem.getPendingTicket().remove(GUIApplication.ticketSystem.getPendingTicket().indexOf(AssignTable.getItems().get(selectedID))));
+        AssignTable.getItems().remove(selectedID);
     }
     //Method that loads the Technician Main Menu
     public void loadTechView(ActionEvent event) throws IOException {
