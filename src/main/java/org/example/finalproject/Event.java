@@ -1,21 +1,23 @@
 package org.example.finalproject;
 
 public abstract class Event {
-
+    //ID incrementation Variable
     private static int idCounter = 1;
 
+    //Members of the Event Class
     private int eventID;
-
     Arena eventArena;
     protected String eventName;
     protected String eventType;
     private int totalSections;
 
+    //Event Constructors
     public Event(){
         eventID = idCounter;
         idCounter++;
     }
 
+    //Getter Setter methods for every class member
     public int getEventID() {
         return eventID;
     }

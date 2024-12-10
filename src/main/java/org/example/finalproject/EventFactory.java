@@ -1,7 +1,7 @@
 package org.example.finalproject;
 
 public class EventFactory extends EventAbstractFactory{
-
+//Event Creation Factory Method
     @Override
     public Event getEvent(String eventType, String eventName){
         if( eventType == null){
