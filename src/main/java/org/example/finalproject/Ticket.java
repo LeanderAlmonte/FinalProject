@@ -57,12 +57,10 @@ public class Ticket {
         this.assigned = false;
         this.processing = false;
         this.assignedUser = null;
-
         idCounter++;
-
     }
 
-    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price,String eventName) {
+    public Ticket(int ticketID, int eventID, int sectionID, int seatID, double price,String eventName, boolean assigned, boolean processing) {
         TicketID = ticketID;
         this.eventID = eventID;
         this.sectionID = sectionID;
@@ -71,7 +69,6 @@ public class Ticket {
         this.assigned = assigned;
         this.processing = processing;
         this.eventName=eventName;
-        idCounter++;
     }
 
     public int getTicketID() {

@@ -298,9 +298,7 @@ public class GuiController {
             RefundTableEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> refundList = RefundTable.getItems();
 
-            for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
-            refundList.add(GUIApplication.ActiveUser.myTickets.get(i));
-        }
+            refundList.addAll(GUIApplication.ActiveUser.myTickets);
             RefundTable.setItems(refundList);
             System.out.println("Table was loaded");
         }
@@ -316,11 +314,7 @@ public class GuiController {
             SearchSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
             SearchEvent_Name.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = SearchTable.getItems();
-            for (int i = 1; i < GUIApplication.ticketSystem.getUnassignedTicket().size(); i++) {
-
-                list.add(GUIApplication.ticketSystem.getUnassignedTicket().get(i));
-
-            }
+            list.addAll(GUIApplication.ticketSystem.getUnassignedTicket());
 
             SearchTable.setItems(list);
             System.out.println("Table was loaded");
@@ -340,11 +334,7 @@ public class GuiController {
             UserSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
             UserEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = UserTable.getItems();
-            for (int i = 0; i < GUIApplication.ActiveUser.myTickets.size(); i++) {
-
-                list.add(GUIApplication.ActiveUser.myTickets.get(i));
-
-            }
+            list.addAll(GUIApplication.ActiveUser.myTickets);
 
             UserTable.setItems(list);
             System.out.println("Table was loaded");
@@ -361,9 +351,7 @@ public class GuiController {
             AssignSection.setCellValueFactory(new PropertyValueFactory<Ticket, Integer>("sectionID"));
             AssignEvent.setCellValueFactory(new PropertyValueFactory<Ticket, String>("eventName"));
             ObservableList<Ticket> list = AssignTable.getItems();
-            for (int i = 0; i < GUIApplication.ticketSystem.getPendingTicket().size(); i++) {
-                list.add(GUIApplication.ticketSystem.getPendingTicket().get(i));
-            }
+            list.addAll(GUIApplication.ticketSystem.getPendingTicket());
             AssignTable.setItems(list);
             System.out.println("Table was loaded");
         }
@@ -389,7 +377,6 @@ public class GuiController {
         } else {
             GUIApplication.ActiveTechnician.createEvent(eventTypeComboBox.getValue(), eventNameField.getText());
             createEventErrorLabel.setText(LocaleManager.getString("eventSuccess"));
-            GuiModel.displayUnsassignedTickets();
         }
 
     }

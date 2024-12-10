@@ -91,9 +91,18 @@ public class GuiModel {
     } catch (SQLException e) {
         System.out.println(e.getMessage());
     }
-
-
 }
+    private static void dropTicketTable() {
+        String sql = "DROP TABLE IF EXISTS Ticket;";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Ticket table dropped successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error dropping Ticket table: " + e.getMessage());
+        }
+    }
     //Creation of the event Table
     private static void EventTable(){
         String sql = " create table if not exists Event ( \n"
@@ -185,27 +194,24 @@ public class GuiModel {
         }
     }
     //Method that load every event
-    public static void loadEvents(TicketSystem system){
+    public static void loadEvents(TicketSystem system) {
         String sql = "select * from Event";
-        try(Connection conn = connect(); Statement stmt = conn.createStatement()){
+        try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
 
-            while(rs.next()){
-                if(rs.getString("EventType").equalsIgnoreCase("BasketballGame")){
+            while (rs.next()) {
+                if (rs.getString("EventType").equalsIgnoreCase("BasketballGame")) {
                     system.addEvent(new BasketballGame(rs.getString("name"), rs.getString("eventType")));
-                }
-                else if (rs.getString("EventType").equalsIgnoreCase("Concert")){
+                } else if (rs.getString("EventType").equalsIgnoreCase("Concert")) {
                     system.addEvent(new Concert(rs.getString("name"), rs.getString("eventType")));
-                }
-                else if (rs.getString("EventType").equalsIgnoreCase("HockeyGame")){
+                } else if (rs.getString("EventType").equalsIgnoreCase("HockeyGame")) {
                     system.addEvent(new HockeyGame(rs.getString("name"), rs.getString("eventType")));
-                }
-                else if (rs.getString("EventType").equalsIgnoreCase("Spectacle")){
+                } else if (rs.getString("EventType").equalsIgnoreCase("Spectacle")) {
                     system.addEvent(new Spectacle(rs.getString("name"), rs.getString("eventType")));
                 }
             }
             System.out.println("Loaded Event data to system");
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -255,7 +261,7 @@ public class GuiModel {
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
+                system.getUnassignedTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -270,7 +276,7 @@ public class GuiModel {
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getPendingTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
+                system.getPendingTicket().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -285,7 +291,7 @@ public class GuiModel {
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
+                system.getProcessedTickets().add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded Technician data to system");
@@ -334,7 +340,7 @@ public class GuiModel {
 
             while(rs.next()){
 
-                user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName")));
+                user.myTickets.add(new Ticket(rs.getInt("TicketID"), rs.getInt("EventID"), rs.getInt("SectionID"),rs.getInt("SeatID"),rs.getDouble("Price"),rs.getString("EventName"), rs.getBoolean("Processing"), rs.getBoolean("Assigned")));
                 System.out.println("ticket Added");
             }
             System.out.println("Loaded User data to system");
@@ -349,7 +355,8 @@ public static void main(String[] args) {
 //TechTable();
 //
 //EventTable();
-//TicketTable();
+TicketTable();
+//    dropTicketTable();
 
 // insertUser("Leander Almonte", "almontel@gmail.com", "almontel","user1");
 // insertUser("Luke Nwantoly", "nwantolyl@gmail.com", "nwantolyl","user2");
