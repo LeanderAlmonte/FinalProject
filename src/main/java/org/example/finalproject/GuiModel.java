@@ -119,16 +119,16 @@ public class GuiModel {
         }
     }
     //Method that inserts a User
-    public static void insertUser(String name, String email, String username, String password) {
+    public static void insertUser(User user) {
         String sql = " insert into User (name,email,username,password) values (?, ?, ?, ?)";
         try(Connection conn= connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.setString(3, username);
-            pstmt.setString(4, password);
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getUsername());
+            pstmt.setString(4, user.getPassword());
             pstmt.executeUpdate();
-            System.out.println(name+" has been added to the database successfully");
+            System.out.println(user.getName()+" has been added to the database successfully");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

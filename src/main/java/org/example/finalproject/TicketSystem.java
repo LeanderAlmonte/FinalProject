@@ -14,6 +14,34 @@ public  class TicketSystem {
 
     private List<Event> events;
 
+    public static void setInstance(TicketSystem instance) {
+        TicketSystem.instance = instance;
+    }
+
+    public List<Technician> getTechnicians() {
+        return technicians;
+    }
+
+    public void setTechnicians(List<Technician> technicians) {
+        this.technicians = technicians;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
     private List<User> users;
     private List<Technician> technicians;
 
